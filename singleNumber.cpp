@@ -4,3 +4,9 @@ int singleNumber(int A[], int n) {
 		single ^= A[i];
 	return single;
 }
+int singleNumber(int A[], int n) { //O(n2)
+	
+	for(int i = 0; i < n; i++)
+		if(count(A,A+n,A[i]) < 2) 
+			return single;
+}
