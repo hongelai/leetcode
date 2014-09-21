@@ -6,15 +6,26 @@
 #include <vector>
 #include <list>
 #include <string>
-
+#include <map>
+#include <unordered_map>
 using namespace std;
-
-
-
 int main ()
 {
-	int array [7] = {2,4,1,3,3,1,2};
-	cout<<singleNumber(array,7)<<endl;
+	string  S= "barfoothefoobarman";
+	vector<string> L;
+	L.push_back("foo");
+	L.push_back("bar");
+	typedef unordered_map<string, int> umap;
+	umap um;
+	um(make_pair("abc",23));
+	um(make_pair("abc",22));
+	umap::const_iterator cit;
+	
+	// vector<int> result = findSubstring(S,L);
+	// while(!result.empty()){
+	// 	cout<<result.back()<<endl;
+	// 	result.pop_back();
+	// } 
 
 	system("pause");
 	return 0;
