@@ -17,8 +17,8 @@ int main ()
 	L.push_back("bar");
 	typedef unordered_map<string, int> umap;
 	umap um;
-	um(make_pair("abc",23));
-	um(make_pair("abc",22));
+	um.insert(make_pair("abc",23));
+	um.insert(make_pair("abc",22));
 	umap::const_iterator cit;
 	
 	// vector<int> result = findSubstring(S,L);
