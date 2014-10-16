@@ -7,11 +7,11 @@
 #include <list>
 #include <string>
 #include <map>
-
 #include <set>
 #include <algorithm>
 #include <stack>
 #include <sstream>
+
 using namespace std;
 
 
@@ -26,7 +26,10 @@ int main ()
     cout<<ios.str()<<endl;
 
 
+<<<<<<< HEAD
 	system("pause");
+=======
+>>>>>>> origin/master
 
 	return 0;
 }
