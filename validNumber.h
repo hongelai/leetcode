@@ -38,4 +38,4 @@
         if(regex_match(s,e))
             return true;
         else return false;
-    }
+    } //regex method
