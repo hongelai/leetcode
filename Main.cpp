@@ -1,4 +1,3 @@
-// queue::push/pop
 #include <iostream>
 #include <queue>
 #include <cstdlib>
