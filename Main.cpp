@@ -20,23 +20,37 @@ bool isNumber(const char *s) {
             return true;
         else return false;
     }
-int maxProfit(vector<int> &prices) {
-    if (prices.size() < 2) return 0;
-        int profit = 0; // 差价，也就是利润
-        int cur_min = prices[0]; // 当前最小
-        for (int i = 1; i < prices.size(); i++) {
-            profit = max(profit, prices[i] - cur_min);
-            cur_min = min(cur_min, prices[i]);
+    void maxProfit(vector<int> &prices) {
+        int size = prices.size();
+        if(size < 2) return;
+        prices.push_back(0);
+        int valley = 0,peak = 0;
+        vector<int> val;
+        int profit =0;
+        
+        for(int i = 1; i <= size;i++){
+            if(prices[i] > prices[i+1] && prices[i] >= prices[i-1]){
+                peak = i;
+                val.push_back(prices[peak]-prices[valley]);
+                
+            }else if(prices[i] < prices[i+1] && prices[i] <= prices[i-1] ){
+                valley = i;
+            }
         }
-    return profit;
-}
+        make_heap(val.begin(),val.end(),less<int>());
+
+        for(int i =0;i < 2;i++) profit+=val[i];
+        cout<<profit<<endl;
+    }
 int main ()
 {
 
-	int array[]={3,1,2,3,4,5,1,2,10,3};
-	vector<int> v(array,array+10);
+	int array[]={3,1,1,3,4,5,1,2,10,3,2,11,13};
+	vector<int> v(array,array+13);
 
-    cout<<maxProfit(v)<<endl;
+//    auto j=partition(v.begin(),v.end(),bind2nd(less<int>(),4));
+//    for(auto i = v.begin();i != v.end() ;i++) cout<<*i<"m ";
+    maxProfit(v);
 	system("pause");
 
 	return 0;
