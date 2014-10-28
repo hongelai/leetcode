@@ -11,46 +11,59 @@
 #include <stack>
 #include <sstream>
 #include <regex>
+#include <limits>
 using namespace std;
 
-bool isNumber(const char *s) {
-        //regex e("(\\s)*[+-]?((\\.[0-9]+)|([0-9]+\\.[0-9]?)([eE][+-]?[0-9]+)?(\\s)*");
-        regex e("(\\s*)[+-]?((\\.[0-9]+)|([0-9]+(\\.[0-9]*)?))(e[+-]?[0-9]+)?(\\s*)");
-        if(regex_match("2e10",e))
-            return true;
-        else return false;
-    }
-    void maxProfit(vector<int> &prices) {
-        int size = prices.size();
-        if(size < 2) return;
-        prices.push_back(0);
-        int valley = 0,peak = 0;
-        vector<int> val;
-        int profit =0;
-        
-        for(int i = 1; i <= size;i++){
-            if(prices[i] > prices[i+1] && prices[i] >= prices[i-1]){
-                peak = i;
-                val.push_back(prices[peak]-prices[valley]);
-                
-            }else if(prices[i] < prices[i+1] && prices[i] <= prices[i-1] ){
-                valley = i;
-            }
+int longestCommonSubstring(string &a, string &b){
+    int len1 = a.length();
+    int len2 = b.length();
+    int maxLen[len1+1][len2+1];
+    
+    if(len1 == 0 || len2 == 0) return 0;
+    for(int i = 0; i <= len1; i++) maxLen[i][0] = 0;
+    for(int i = 0; i <= len2; i++) maxLen[0][i] = 0;
+    
+    for(int i = 1; i <= len1; i++)
+        for(int j = 1; j <= len2; j++)
+        {
+            if(a[i-1] == b[j-1])  maxLen[i][j] = maxLen[i-1][j-1] + 1;
+            else                  maxLen[i][j] = max(maxLen[i-1][j], maxLen[i][j-1]);
         }
-        make_heap(val.begin(),val.end(),less<int>());
+    return maxLen[len1][len2];
+}
+int Num(vector<int> &v,int start, int end){
+    int sum = 0;
+    for(int i = end-1,j = 0; i >= start-1 && i >= 0  ; i--,j++)
+        sum += v[i]*pow(10,j);
+    
+    return sum;
+}
+int maxSum(vector<int> v, int m){
+    int val[m+1][v.size()+1];  //
+    for(int i = 0; i <= v.size(); i++) val[0][i] = Num(v,0,i);
 
-        for(int i =0;i < 2;i++) profit+=val[i];
-        cout<<profit<<endl;
+    int minVal = numeric_limits<int>::max();
+    
+    //V(m,n) = Min(V(m-1,i)+Num(i+1,n))  i = m,..,n-1
+    for(int i = 1; i <= m; i++){ //m
+        for(int j = i+1; j <= v.size(); j++){ //n
+            for(int k = i; k < j; k++)//cal the Min
+                minVal = min(val[i-1][k]+Num(v,k+1,j),minVal);
+            val[i][j] = minVal; 
+            minVal = numeric_limits<int>::max();   
+        }
+        
     }
+    return val[m][v.size()];
+}
 int main ()
 {
 
-	int array[]={3,1,1,3,4,5,1,2,10,3,2,11,13};
-	vector<int> v(array,array+13);
+	int array[8]={10,1,3,5,5,2};
+	vector<int> v(array,array+6);
 
-//    auto j=partition(v.begin(),v.end(),bind2nd(less<int>(),4));
-//    for(auto i = v.begin();i != v.end() ;i++) cout<<*i<"m ";
-    maxProfit(v);
+    cout<<maxSum(v,3)<<endl;
+
 	system("pause");
 
 	return 0;
