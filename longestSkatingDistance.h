@@ -1,18 +1,3 @@
-#include <iostream>
-#include <queue>
-#include <cstdlib>
-#include <string>
-#include <vector>
-#include <list>
-#include <string>
-#include <map>
-#include <set>
-#include <algorithm>
-#include <stack>
-#include <sstream>
-#include <regex>
-#include <limits>
-using namespace std;
 int longestSkatingDistance(int a[5][5],int m,int n)
 {
     multimap<int,pair<int,int>> mp;
@@ -39,18 +24,4 @@ int longestSkatingDistance(int a[5][5],int m,int n)
     }               
  
     return maxResult;
-}          
-int main ()
-{
-
-	int array[5][5]={{1,2,3,4,5},
-                     {16,17,18,19,6},
-                     {15,26,25,20,7},
-                     {14,23,22,21,8},
-                     {13,12,11,10,9}};
-    cout<<longestSkatingDistance(array,5,5)<<endl;    
-           
-	system("pause");
-
-	return 0;
-}
+}  
