@@ -1,18 +1,3 @@
-#include <iostream>
-#include <queue>
-#include <cstdlib>
-#include <string>
-#include <vector>
-#include <list>
-#include <string>
-#include <map>
-#include <set>
-#include <algorithm>
-#include <stack>
-#include <sstream>
-#include <regex>
-#include <limits>
-using namespace std;
 void sayNum(int n)
 {
     vector<string> big = {"","thousand","million","billion"};
@@ -47,14 +32,4 @@ void sayNum(int n)
     }      
     
 
-}
-int main ()
-{
-
-	int array[1][6]={10,1,3,5,5,2};
-	
-	sayNum(1314124214);
-	system("pause");
-
-	return 0;
 }
