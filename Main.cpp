@@ -35,25 +35,26 @@ int findFirstUnique(vector<int> &v){
 
 	return *us.begin();
 }
-    vector<int> getRow(int rowIndex) {
-        vector<int> res;
-        res.resize(rowIndex+1);
+    vector<int> plusOne(vector<int> &digits) {
         
-        for(int i=0; i <= rowIndex; i++){
-            res[0] = res[i] = 1;
-            for(int j = i-1; j > 0;j--){
-                res[j] = res[j-1]+res[j];
-            }
+        int carry = 1;
+        
+        for(auto it = digits.rbegin();it != digits.rend() && carry > 0; it++){
+            *it += carry;
+            carry = *it /10;
+            *it = *it %10;
         }
-        return res;
+        if(carry>0)
+            digits.insert(digits.begin(),carry);
+
+        return digits;
     }
 int main ()
 {
 
-	int array[]={1,2,2,3,4,3,1,5,3,11};
-	vector<int> v(array,array+10);
-cout<<NULL<<endl;      
-       
+	int a[]={1,9,9};
+	vector<int> v(a,a+3);
+    cout<<a.<<endl;
 	system("pause");
 
 
