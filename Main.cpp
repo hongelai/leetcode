@@ -12,6 +12,7 @@
 #include <sstream>
 #include <regex>
 #include <limits>
+#include <unordered_set>
 using namespace std;
 
 int findFirstUnique(vector<int> &v){
@@ -34,13 +35,25 @@ int findFirstUnique(vector<int> &v){
 
 	return *us.begin();
 }
-
+    vector<int> getRow(int rowIndex) {
+        vector<int> res;
+        res.resize(rowIndex+1);
+        
+        for(int i=0; i <= rowIndex; i++){
+            res[0] = res[i] = 1;
+            for(int j = i-1; j > 0;j--){
+                res[j] = res[j-1]+res[j];
+            }
+        }
+        return res;
+    }
 int main ()
 {
 
 	int array[]={1,2,2,3,4,3,1,5,3,11};
 	vector<int> v(array,array+10);
-
+cout<<NULL<<endl;      
+       
 	system("pause");
 
 
