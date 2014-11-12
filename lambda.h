@@ -1,0 +1,1 @@
+function<bool(int,int)> foo = [=,&target](int a,int b){}

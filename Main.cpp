@@ -5,7 +5,7 @@
 #include <vector>
 #include <list>
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <set>
 #include <algorithm>
 #include <stack>
@@ -13,60 +13,46 @@
 #include <regex>
 #include <limits>
 using namespace std;
-class MinStack {
-public:
-    void push(int x) {
-        if(s.empty()){
-          
-            min = x;
+string intToRoman(int num) {
+const int radix[] = {1000, 900, 500, 400, 100, 90,
+50, 40, 10, 9, 5, 4, 1};
+const string symbol[] = {"M", "CM", "D", "CD", "C", "XC",
+"L", "XL", "X", "IX", "V", "IV", "I"};
+string roman;
+for (size_t i = 0; num > 0; ++i) {
+int count = num / radix[i];
+num %= radix[i];
+for (; count > 0; --count) roman += symbol[i];
+}
+return roman;
+}
+    int romanToInt(string s) {
+        unordered_map<char,int> um;
+        um['I'] = 1;
+        um['V'] = 5;
+        um['X'] = 10;
+        um['L'] = 50;
+        um['C'] = 100;
+        um['D'] = 500;
+        um['M'] = 1000;
+        int result = 0;
+        
+        for(auto it = s.begin(); it != s.end();it++){
+            char c = *prev(it);
+            if(um[*it] > um[c]) result += um[*it] -2*um[c]; // 
+            else result += um[*it];
         }
-        s.push(x - min);
-        if(x < min) min = (long long)x;  // replace min after the push the min, so only whenever negative means min change
+        return result;
     }
 
-    void pop() {
-        if(!s.empty()){
-            if(s.top() < 0) min = min - s.top();
-            s.pop();
-        }
-    }
-
-    int top() {
-        if(s.top() < 0) return (int)min; // at turning point the min is itself
-        else            return (int)(s.top()+min);
-    }
-
-    int getMin() {
-        return (int)min;
-    }
-    stack<long long> s;
-    long long min;
-};
 int main ()
 {
 
     int array[] = {1,3,2,3,4,5,2,5,1};
     vector<int> v(array,array+9);
-    MinStack ms;
-    ms.push(2147483646);
-    ms.push(2147483646);
-    ms.push(2147483647);  
-    cout<<ms.top()<<endl;
-    ms.pop();
-    cout<<ms.getMin()<<endl;  
-    ms.pop();
-    cout<<ms.getMin()<<endl;
-    ms.pop();
-    ms.push(2147483647);
-    cout<<ms.top()<<endl;
-    cout<<ms.getMin()<<endl;
-    ms.push(-5);    
-    cout<<ms.top()<<endl;
-    cout<<ms.getMin()<<endl;
-    ms.pop();
-    cout<<ms.getMin()<<endl;  
-    
- 
+    string s="LXXVIII";
+//    cout<<romanToInt(s)<<endl;
+    cout<<intToRoman(3999)<<endl;
 	system("pause");
 
 	return 0;
