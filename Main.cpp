@@ -13,7 +13,7 @@
 #include <regex>
 #include <unordered_map>
 #include <unordered_set>
-using namespace std;
+
 int findFirstUnique(vector<int> &v){
 
 	unordered_map<int,int> um;
@@ -49,5 +49,9 @@ int main ()
 	// auto it = um.begin();
 	// for(;it!=um.end();it++)
 	// 	cout<<(it->second).first<<"  ";
+
+	system("pause");
+
+
 	return 0;
 }
