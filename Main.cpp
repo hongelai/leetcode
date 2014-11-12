@@ -13,43 +13,60 @@
 #include <regex>
 #include <limits>
 using namespace std;
-int longestSkatingDistance(int a[5][5],int m,int n)
-{
-    multimap<int,pair<int,int>> mp;
-    for(int i = 0; i < m; i++)
-       for(int j = 0; j < n; j++){
-           int tmp = a[i][j];
-           mp.insert(make_pair(tmp, make_pair(j,i)));
-       }  
-       
-    int result[m][n];
-    result[0][0] = 0;
-    int maxResult = 0;
-    for(auto it = mp.begin(); it != mp.end();it++){
-        int x = (it->second).first;
-        int y = (it->second).second;
-        int mm = 0;
-        if(x-1 >= 0 && a[y][x-1] < it->first) mm = max(mm,result[y][x-1] + 1);
-        if(x+1 < n && a[y][x+1] < it->first) mm = max(mm,result[y][x+1] + 1);
-        if(y+1 < m && a[y+1][x] < it->first) mm = max(mm,result[y+1][x] + 1);
-        if(y-1 >= 0 && a[y-1][x] < it->first) mm = max(mm,result[y-1][x] + 1);
-        
-        result[y][x] = mm;
-        if(mm>maxResult) maxResult = mm;
-    }               
- 
-    return maxResult;
-}          
+class MinStack {
+public:
+    void push(int x) {
+        if(s.empty()){
+          
+            min = x;
+        }
+        s.push(x - min);
+        if(x < min) min = (long long)x;  // replace min after the push the min, so only whenever negative means min change
+    }
+
+    void pop() {
+        if(!s.empty()){
+            if(s.top() < 0) min = min - s.top();
+            s.pop();
+        }
+    }
+
+    int top() {
+        if(s.top() < 0) return (int)min; // at turning point the min is itself
+        else            return (int)(s.top()+min);
+    }
+
+    int getMin() {
+        return (int)min;
+    }
+    stack<long long> s;
+    long long min;
+};
 int main ()
 {
 
-	int array[5][5]={{1,2,3,4,5},
-                     {16,17,18,19,6},
-                     {15,26,25,20,7},
-                     {14,23,22,21,8},
-                     {13,12,11,10,9}};
-    cout<<longestSkatingDistance(array,5,5)<<endl;    
-           
+    int array[] = {1,3,2,3,4,5,2,5,1};
+    vector<int> v(array,array+9);
+    MinStack ms;
+    ms.push(2147483646);
+    ms.push(2147483646);
+    ms.push(2147483647);  
+    cout<<ms.top()<<endl;
+    ms.pop();
+    cout<<ms.getMin()<<endl;  
+    ms.pop();
+    cout<<ms.getMin()<<endl;
+    ms.pop();
+    ms.push(2147483647);
+    cout<<ms.top()<<endl;
+    cout<<ms.getMin()<<endl;
+    ms.push(-5);    
+    cout<<ms.top()<<endl;
+    cout<<ms.getMin()<<endl;
+    ms.pop();
+    cout<<ms.getMin()<<endl;  
+    
+ 
 	system("pause");
 
 	return 0;
