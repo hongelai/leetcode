@@ -35,26 +35,31 @@ int findFirstUnique(vector<int> &v){
 
 	return *us.begin();
 }
-    vector<int> plusOne(vector<int> &digits) {
-        
-        int carry = 1;
-        
-        for(auto it = digits.rbegin();it != digits.rend() && carry > 0; it++){
-            *it += carry;
-            carry = *it /10;
-            *it = *it %10;
+    bool isValid(string s) {
+        stack<char> sk;
+        for(auto it=s.begin(); it != s.end();it++){
+            if(*it == '(' || *it == '{' || *it == '[' )
+                sk.push(*it);
+            else if(*it == ')' || *it == '}' || *it == ']' ){
+                cout<<"call"<<endl;
+                if(!sk.empty()){
+                
+                    if((*it == ')' && sk.top() == '(')||(*it == ']' && sk.top() == '[')||(*it == '}' && sk.top() == '{'))
+                        sk.pop();
+                    }
+                else return false;
+            }else return false;
         }
-        if(carry>0)
-            digits.insert(digits.begin(),carry);
-
-        return digits;
+        if(sk.empty()) return true;
+        else return false;
     }
 int main ()
 {
 
 	int a[]={1,9,9};
 	vector<int> v(a,a+3);
-    cout<<a.<<endl;
+	string str="]";
+    cout<<isValid(str)<<endl;
 	system("pause");
 
 
