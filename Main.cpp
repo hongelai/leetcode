@@ -13,6 +13,7 @@
 #include <regex>
 #include <limits>
 #include <unordered_set>
+#include <string.h>
 using namespace std;
 
 int findFirstUnique(vector<int> &v){
@@ -35,31 +36,24 @@ int findFirstUnique(vector<int> &v){
 
 	return *us.begin();
 }
-    bool isValid(string s) {
-        stack<char> sk;
-        for(auto it=s.begin(); it != s.end();it++){
-            if(*it == '(' || *it == '{' || *it == '[' )
-                sk.push(*it);
-            else if(*it == ')' || *it == '}' || *it == ']' ){
-                cout<<"call"<<endl;
-                if(!sk.empty()){
-                
-                    if((*it == ')' && sk.top() == '(')||(*it == ']' && sk.top() == '[')||(*it == '}' && sk.top() == '{'))
-                        sk.pop();
-                    }
-                else return false;
-            }else return false;
-        }
-        if(sk.empty()) return true;
-        else return false;
+int lengthOfLastWord(const char *s) {
+        char str[strlen(s)];
+        strcpy(str,s);
+        reverse(str,str+strlen(str));
+        stringstream is(str);
+        string res;
+        is>>res;
+        reverse(res.begin(),res.end());
+        return res.size();
     }
 int main ()
 {
 
 	int a[]={1,9,9};
 	vector<int> v(a,a+3);
-	string str="]";
-    cout<<isValid(str)<<endl;
+    char str[]= " ";
+    
+    cout<<lengthOfLastWord(str)<<endl;
 	system("pause");
 
 

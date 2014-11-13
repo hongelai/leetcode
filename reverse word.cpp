@@ -31,3 +31,17 @@ void reverseWords(string &s) {
 	else
 		s = str;
 }
+
+
+    void reverseWords(string &s) 
+    {
+        stringstream scin(s);
+        string word, res;
+        while (scin >> word)
+        {
+            if (res.length() != 0)
+                word += " ";
+            res = word + res;
+        }
+        s = res;
+    }
