@@ -1,10 +1,6 @@
     ListNode *removeNthFromEnd(ListNode *head, int n) {
         ListNode *fast,*slow;
-        ListNode dummy{-1}; //不能初始化为指针，因为没有内存 ，
-                            // 可以用struct PipeShm * myPipe = &(struct PipeShm) {
-                            //             .val = 0, //val 前面要加点
-                            //             /* ... */
-                            //         };
+        ListNode dummy{-1}; //ListNode * dummy = new(-1);
         dummy.next = head;
         fast = slow = &dummy;
         for(int i = 0; i < n; i++) 
