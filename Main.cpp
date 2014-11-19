@@ -18,7 +18,7 @@ using namespace std;
 
 int findFirstUnique(vector<int> &v){
 
-	unordered_map<int,int> um;
+	unordered_multimap<int,int> um;
 	unordered_set<int> us;
 	for(int i = 0; i < v.size(); i++){
 		if(!um[v[i]]){
@@ -38,40 +38,14 @@ int findFirstUnique(vector<int> &v){
 }
 
 
-    bool isMatch(const char *s, const char *p) {
-        const char* pBackup= NULL, *sBackup = NULL;
-        
-        while(*s != '\0'){
-            if(*s == *p || *p == '.'){
-                s++;
-                p++;
-            }else if(*p == '*'){
-                
-                while(*p == '*') p++;
-                if(*p == '\0') return true;
-    
-                pBackup = p;
-                sBackup = s;
-            }else{
-                if(pBackup){
-                    p = pBackup;
-                    s = sBackup;
-                    s++;
-                }else return false;
-            }
-        }
-        cout<<*p<<endl;
-        while(*p == '*') p++;
-        if(*s == '\0' && *p == '\0') return true;
-        else return false;
-    }
+
 int main ()
 {
 
 
     char a[]="ab";
     char b[]=".*c";
-    cout<<isMatch(a,b)<<endl;
+
 
 	system("pause");
 
