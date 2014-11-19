@@ -37,38 +37,41 @@ int findFirstUnique(vector<int> &v){
 	return *us.begin();
 }
 
-    void sortColors(int A[], int n) {
-        int front = 0,back = n-1;
-        for(int i =0; i <=back && i >= front;){
-            if(A[i]==0){
-                if(A[front] == 0){
-                   front++; 
-                   i++;
-                   continue;
-                } 
-                else swap(A[i],A[front++]);
-                if(i == front || (A[i]!= 0 && A[i]!= 2)) i++;
-            }else if(A[i]==2){
-                if(A[back] == 2){
-                    back--;
-                    
-                    continue;
-                } 
-                else swap(A[i],A[back--]);
-                if(i == back || (A[i] != 0 && A[i]!= 2)) i++;
-            }else  i++;
-            for(int i=0;i<n;i++) cout<<A[i]<<" ";
-            cout<<endl;
-        }
+
+    bool isMatch(const char *s, const char *p) {
+        const char* pBackup= NULL, *sBackup = NULL;
         
+        while(*s != '\0'){
+            if(*s == *p || *p == '.'){
+                s++;
+                p++;
+            }else if(*p == '*'){
+                
+                while(*p == '*') p++;
+                if(*p == '\0') return true;
+    
+                pBackup = p;
+                sBackup = s;
+            }else{
+                if(pBackup){
+                    p = pBackup;
+                    s = sBackup;
+                    s++;
+                }else return false;
+            }
+        }
+        cout<<*p<<endl;
+        while(*p == '*') p++;
+        if(*s == '\0' && *p == '\0') return true;
+        else return false;
     }
 int main ()
 {
 
-	int a[]={-3,-2,-44,-32};
-	vector<int> v(a,a+4);
-    int b[]={0,2,1};
-    sortColors(b,3);
+
+    char a[]="ab";
+    char b[]=".*c";
+    cout<<isMatch(a,b)<<endl;
 
 	system("pause");
 
