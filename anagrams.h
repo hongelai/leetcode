@@ -1,3 +1,4 @@
+    //对每一个string 排序 ，要是排序后相同就push到同一个key下面
     vector<string> anagrams(vector<string> &strs) {
         vector<string> res;
         if(strs.size() == 0) return res;
