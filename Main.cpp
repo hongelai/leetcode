@@ -36,68 +36,36 @@ int findFirstUnique(vector<int> &v){
 
 	return *us.begin();
 }
-
-    vector<vector<int> > threeSum(vector<int> &num) {
-        vector<vector<int> > res;
-        if(num.size() < 3) return res;
+    int threeSumClosest(vector<int> &num, int target) {
+        int res, gap = 10000, size = num.size();
         sort(num.begin(),num.end());
-        int target = 0;
-        
-        for(int i = 0; i < num.size()-2; i++){
-             if(num[i] == num[i-1]) continue;
+        for(int i = 0; i < size-2; i++){
+            int pre = i+1,last = size-1;
             
-            int pre = i+1, last = num.size()-1;
-
             while(pre < last){
-                if(num[i]+num[pre]+num[last] > target){
-                    last--;
-                }else if(num[i]+num[pre]+num[last] < target){
-                    pre++;
+                
+                if(abs(num[i]+num[pre]+num[last]-target) < gap ){
+                    gap = abs(num[i]+num[pre]+num[last]-target);
+                    res = num[i]+num[pre]+num[last];
+                    if(res > target) last--;
+                    else if(res < target)pre++;
+                    else return res;
                 }else{
-                    res.push_back({num[i],num[pre],num[last]});
-                    last--; //在当前范围内继续缩小寻找
-                    pre++;
+                    if(num[i]+num[pre]+num[last] < target) pre++;
+                    else last--;
+                   
                 }
             }
-            
         }
-//        sort(res.begin(),res.end());
-        for(int i = 0; i < res.size(); i++){
-            for(int j = 0; j < res[0].size();j++)
-             cout<<res[i][j]<<" ";
-             cout<<endl;
-         }          
-        res.erase(unique(res.begin(), res.end()), res.end());
-              
         return res;
     }
-
 int main ()
 {
-    int aa[]={-1, 0, 1, 2, -1, -4};
-    vector<int> vc(aa,aa+6);
-    vector<vector<int> > res;
-    res.push_back({2,1,3});
-    res.push_back({1,2,3});
-    res.push_back({2,3,1});
-    res.push_back({1,3,2});
-    res.push_back({3,2,3});
-    res.push_back({3,3,2});
+    int aa[]={1,1,1,0};
     
-    sort(res.begin(),res.end());
-            for(int i = 0; i < res.size(); i++){
-            for(int j = 0; j < res[0].size();j++)
-             cout<<res[i][j]<<" ";
-             cout<<endl;
-         }  
-         res.erase(unique(res.begin(), res.end()), res.end());
-         cout<<endl;
-                 for(int i = 0; i < res.size(); i++){
-            for(int j = 0; j < res[0].size();j++)
-             cout<<res[i][j]<<" ";
-             cout<<endl;
-         }      
-//    threeSum(vc);
+    vector<int> vc(aa,aa+4);
+
+    cout<<threeSumClosest(vc,100);
 	system("pause");
 
 
