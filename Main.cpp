@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <stack>
 #include <sstream>
-//#include <regex>
+#include <map>
 #include <limits>
 #include <unordered_set>
 #include <string.h>
@@ -18,7 +18,7 @@ using namespace std;
 
 int findFirstUnique(vector<int> &v){
 
-	unordered_map<int,int> um;
+	unordered_multimap<int,int> um;
 	unordered_set<int> us;
 	for(int i = 0; i < v.size(); i++){
 		if(!um[v[i]]){
@@ -38,43 +38,47 @@ int findFirstUnique(vector<int> &v){
 }
 
 
-    bool isMatch(const char *s, const char *p) {
-        const char* pBackup= NULL, *sBackup = NULL;
+    vector<vector<int> > threeSum(vector<int> &num) {
+        vector<vector<int> > res;
         
-        while(*s != '\0'){
-            if(*s == *p || *p == '.'){
-                s++;
-                p++;
-            }else if(*p == '*'){
-                
-                while(*p == '*') p++;
-                if(*p == '\0') return true;
-    
-                pBackup = p;
-                sBackup = s;
-            }else{
-                if(pBackup){
-                    p = pBackup;
-                    s = sBackup;
-                    s++;
-                }else return false;
+        for(int i = 0; i < num.size(); i++){
+            int target = 0-num[i];
+            vector<int> tmp;
+            unordered_multiset<int> map;
+            
+            for(int j = i+1; j < num.size(); j++){
+                int second = target - num[j];
+                auto pos = map.find(second);
+                if(pos == map.end())
+                    map.insert(num[j]);
+                else{
+                    tmp.push_back(num[i]);
+                    tmp.push_back(num[j]);
+                    tmp.push_back(second);
+                    cout<<num[i]<<" "<<num[j]<<" "<<second<<endl;
+                    res.push_back(tmp);
+                    vector<int> empty;
+                    tmp.swap(empty);
+                }
             }
+            
         }
-        cout<<*p<<endl;
-        while(*p == '*') p++;
-        if(*s == '\0' && *p == '\0') return true;
-        else return false;
+        sort(res.begin(), res.end());
+
+        res.erase(unique(res.begin(), res.end()), res.end());
+        for(int i = 0; i < res.size(); i++){
+            for(int j = 0; j < res[0].size();j++)
+             cout<<res[i][j]<<" ";
+             cout<<endl;
+         }        
+        return res;
     }
 int main ()
 {
-
-
-    char a[]="ab";
-    char b[]=".*c";
-    cout<<isMatch(a,b)<<endl;
-
-	system("pause");
-
+    int aa[]={-1, 0, 1, 2, -1, -4};
+    vector<int> vc(aa,aa+6);
+    
+    threeSum(vc);
 
 	return 0;
 }
