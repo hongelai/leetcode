@@ -18,7 +18,7 @@ using namespace std;
 
 int findFirstUnique(vector<int> &v){
 
-	unordered_multimap<int,int> um;
+	unordered_map<int,int> um;
 	unordered_set<int> us;
 	for(int i = 0; i < v.size(); i++){
 		if(!um[v[i]]){
@@ -37,48 +37,68 @@ int findFirstUnique(vector<int> &v){
 	return *us.begin();
 }
 
-
     vector<vector<int> > threeSum(vector<int> &num) {
         vector<vector<int> > res;
+        if(num.size() < 3) return res;
+        sort(num.begin(),num.end());
+        int target = 0;
         
-        for(int i = 0; i < num.size(); i++){
-            int target = 0-num[i];
-            vector<int> tmp;
-            unordered_multiset<int> map;
+        for(int i = 0; i < num.size()-2; i++){
+             if(num[i] == num[i-1]) continue;
             
-            for(int j = i+1; j < num.size(); j++){
-                int second = target - num[j];
-                auto pos = map.find(second);
-                if(pos == map.end())
-                    map.insert(num[j]);
-                else{
-                    tmp.push_back(num[i]);
-                    tmp.push_back(num[j]);
-                    tmp.push_back(second);
-                    cout<<num[i]<<" "<<num[j]<<" "<<second<<endl;
-                    res.push_back(tmp);
-                    vector<int> empty;
-                    tmp.swap(empty);
+            int pre = i+1, last = num.size()-1;
+
+            while(pre < last){
+                if(num[i]+num[pre]+num[last] > target){
+                    last--;
+                }else if(num[i]+num[pre]+num[last] < target){
+                    pre++;
+                }else{
+                    res.push_back({num[i],num[pre],num[last]});
+                    last--; //在当前范围内继续缩小寻找
+                    pre++;
                 }
             }
             
         }
-        sort(res.begin(), res.end());
-
-        res.erase(unique(res.begin(), res.end()), res.end());
+//        sort(res.begin(),res.end());
         for(int i = 0; i < res.size(); i++){
             for(int j = 0; j < res[0].size();j++)
              cout<<res[i][j]<<" ";
              cout<<endl;
-         }        
+         }          
+        res.erase(unique(res.begin(), res.end()), res.end());
+              
         return res;
     }
+
 int main ()
 {
     int aa[]={-1, 0, 1, 2, -1, -4};
     vector<int> vc(aa,aa+6);
+    vector<vector<int> > res;
+    res.push_back({2,1,3});
+    res.push_back({1,2,3});
+    res.push_back({2,3,1});
+    res.push_back({1,3,2});
+    res.push_back({3,2,3});
+    res.push_back({3,3,2});
     
-    threeSum(vc);
+    sort(res.begin(),res.end());
+            for(int i = 0; i < res.size(); i++){
+            for(int j = 0; j < res[0].size();j++)
+             cout<<res[i][j]<<" ";
+             cout<<endl;
+         }  
+         res.erase(unique(res.begin(), res.end()), res.end());
+         cout<<endl;
+                 for(int i = 0; i < res.size(); i++){
+            for(int j = 0; j < res[0].size();j++)
+             cout<<res[i][j]<<" ";
+             cout<<endl;
+         }      
+//    threeSum(vc);
+	system("pause");
 
 
 	return 0;

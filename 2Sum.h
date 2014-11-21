@@ -1,3 +1,5 @@
+
+//先排序，然后左右夹逼 求得目标值
     vector<int> twoSum(vector<int> &numbers, int target) {
         vector<int> res;
         multimap<int,int> map;
