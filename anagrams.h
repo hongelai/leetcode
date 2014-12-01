@@ -1,3 +1,4 @@
+    //anagram 是组成的character相同 ，palindromic是首尾对应
     //对每一个string 排序 ，要是排序后相同就push到同一个key下面
     vector<string> anagrams(vector<string> &strs) {
         vector<string> res;
