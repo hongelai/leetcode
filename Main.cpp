@@ -75,7 +75,7 @@ int main ()
     int aa[]={1,1,1,0};
     
     vector<int> vc(aa,aa+4);
-    int a = (1 <<2) -1;
+    int a = 1 <<2 -1;
     cout<<a<<endl;
 
 	system("pause");
