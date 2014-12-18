@@ -14,6 +14,7 @@
 #include <unordered_set>
 #include <string.h>
 #include <queue>
+
 using namespace std;
 
 int findFirstUnique(vector<int> &v){
@@ -36,15 +37,24 @@ int findFirstUnique(vector<int> &v){
 
 	return *us.begin();
 }
-
-
+vector<int> split(string source, char del){
+    int index = 0,pos = -1;
+    vector<int> res;
+    while((pos = source.find(del,index)) != -1){
+        res.push_back(stoi(source.substr(index,pos-index)));
+        index++;
+    }
+    return res;
+}
 int main ()
 {
     int aa[]={1,1,1,0};
     
     vector<int> vc(aa,aa+4);
-    vector<string> dic = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-    cout<<dic[2].size()<<endl;
+    string str = "12.12.3";
+    vector<int > rs = split(str,'.');
+    for(int i = 0; i < rs.size();i++) 
+            cout<<rs<<" ";
 
 	system("pause");
 
