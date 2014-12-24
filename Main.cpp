@@ -38,15 +38,29 @@ int findFirstUnique(vector<int> &v){
 	return *us.begin();
 }
 
+    string longestPalindrome(string s) {
+        int length = s.length();
+        vector<vector<bool> > dp(length,vector<bool>(length));
+        string res= "";
+        int max = 0;
+        
+        for(int i = length - 1 ; i >= 0; i--)
+            for(int j = i; j < length; j++){
+                dp[i][j] = (s[i]==s[j]) && (i+2 > j || dp[i+1][j-1]);
+                if(dp[i][j] && j - i >= max){
+                    res = s.substr(i,j-i+1);
+                    max = j - i;
+                    cout<<res<<" "<<i<<" "<<j<<endl;
+                }
+            }
+        return res;
+    }
 int main ()
 {
-    int aa[]={1,1,1,0};
+    int aa[]={2,1,3,2,4,2,5,2,6,2,2,2,3};
     
-    vector<int> vc(aa,aa+4);
-
-    string str = "abcdefghi";
-    
-            cout<<str.substr(6,6);
+    vector<int> vc(aa,aa+13);
+    cout<<longestPalindrome("flsuqzhtcahnyickkgtfnlyzwjuiwqiexthpzvcweqzeqpmqwkydhsfipcdrsjkefehhesubkirhalgnevjugfohwnlhbjfewiunlgmomxkafuuokesvfmcnvseixkkzekuinmcbmttzgsqeqbrtlwyqgiquyylaswlgfflrezaxtjobltcnpjsaslyviviosxorjsfncqirsjpkgajkfpoxxmvsyynbbovieoothpjgncfwcvpkvjcmrcuoronrfjcppbisqbzkgpnycqljpjlgeciaqrnqyxzedzkqpqsszovkgtcgxqgkflpmrikksaupukdvkzbltvefitdegnlmzeirotrfeaueqpzppnsjpspgomyezrlxsqlfcjrkglyvzvqakhtvfmeootbtbwfhqucbnuwznigoyatvkocqmbtqghybwrhmyvvuchjpvjckiryvjfxabezchynfxnpqaeampvaapgmvoylyutymdhvhqfmrlmzkhuhupizqiujpwzarnszrexpvgdmtoxvjygjpmiadzdcxtggwamkbwrkeplesupagievwsaaletcuxtpsxmbmeztcylsjxvhzrqizdmgjfyftpzpgxateopwvynljzffszkzzqgofdlwyknqfruhdkvmvrrjpijcjomnrjjubfccaypkpfokohvkqndptciqqiscvmpozlyyrwobeuazsawtimnawquogrohcrnmexiwvjxgwhmtpykqlcfacuadyhaotmmxevqwarppknoxthsmrrknu")<<endl;
 
 	system("pause");
 
