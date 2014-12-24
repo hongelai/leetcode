@@ -36,49 +36,66 @@ int findFirstUnique(vector<int> &v){
 
 	return *us.begin();
 }
-    string minWindow(string S, string T) {
-        int M = S.size(),N = T.size();
-        if(M < N) return "";
-        int need[256] = {0}, find[256] = {0};
-        
-        int start, end,rstart = -1,rend = M,count=0;
-        start = end = 0;
-        
-        for(int i = 0; i < N; i++) need[T[i]]++;
-
-        for(int i = 0; i < M; i++,end++){
-            if(!need[S[i]]) continue;
-            
-            find[S[i]]++;
-            if(find[S[i]] <= need[S[i]]) count++;
-            if(count == N){ //find all needed characters
-                for(;start <= end; start++){
-                    if(!find[S[start]]) continue;
-                    if(find[S[start]] <= need[S[start]]) break;
-                    find[S[start]]--;
-                }
-                //update rstart , rend
-                if(end- start < rend - rstart){
-                    rstart = start;
-                    rend = end;
-                }
-            }
-            
-             
+    
+    bool isPalidrome(string sub){
+        int low = 0, high = sub.size()-1;
+        while(low < high){
+            if(sub[low] == sub[high]){
+                low++;
+                high--;
+            }else break;
         }
-        cout<<rstart<<" "<<rend<<endl;
-        return rstart == -1? "":string(S.begin()+rstart,S.begin()+rend+1);
+        return low >= high;
     }
-
+    void dfs(string str, int start, vector<string> &item, vector<vector<string> > & res){
+        int length = 1;
+        int oriSize = item.size();
+        for(int i = start; i < str.length();){
+            string sub = str.substr(start,length);
+            item.resize(oriSize);
+            
+            if(isPalidrome(sub)){
+                
+                item.push_back(sub);
+                if(length == str.length()-i)
+                {
+                    res.push_back(item);
+                    break;
+                }
+                i += length;
+                dfs(str,i,item,res);
+            } 
+            length++;
+            if(length > str.length() - i) break;
+            
+        }  
+    }
+    vector<vector<string> > partition(string s) {
+        vector<vector<string> > res;
+        vector<string> item;
+        dfs(s,0,item,res);
+        return res;
+    }
 int main ()
 {
     int aa[]={1,1,1,0};
     
     vector<int> vc(aa,aa+4);
-    int a = 1 <<2 -1;
-    cout<<a<<endl;
+    string str = "aab";
+    vector<vector<string> > res = partition(str);
 
-	system("pause");
+    for (int i = 0; i < res.size(); ++i)
+    {
+        /* code */
+        for (int j = 0; j < res[i].size(); ++j)
+        {
+            /* code */
+            cout<<res[i][j]<<"  ";
+        }
+        cout<<endl;
+    }
+
+	// system("pause");
 
 
 	return 0;
