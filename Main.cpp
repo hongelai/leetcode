@@ -14,6 +14,7 @@
 #include <unordered_set>
 #include <string.h>
 #include <queue>
+
 using namespace std;
 
 int findFirstUnique(vector<int> &v){
@@ -36,66 +37,12 @@ int findFirstUnique(vector<int> &v){
 
 	return *us.begin();
 }
-    
-    bool isPalidrome(string sub){
-        int low = 0, high = sub.size()-1;
-        while(low < high){
-            if(sub[low] == sub[high]){
-                low++;
-                high--;
-            }else break;
-        }
-        return low >= high;
-    }
-    void dfs(string str, int start, vector<string> &item, vector<vector<string> > & res){
-        int length = 1;
-        int oriSize = item.size();
-        for(int i = start; i < str.length();){
-            string sub = str.substr(start,length);
-            item.resize(oriSize);
-            
-            if(isPalidrome(sub)){
-                
-                item.push_back(sub);
-                if(length == str.length()-i)
-                {
-                    res.push_back(item);
-                    break;
-                }
-                i += length;
-                dfs(str,i,item,res);
-            } 
-            length++;
-            if(length > str.length() - i) break;
-            
-        }  
-    }
-    vector<vector<string> > partition(string s) {
-        vector<vector<string> > res;
-        vector<string> item;
-        dfs(s,0,item,res);
-        return res;
-    }
+
 int main ()
 {
-    int aa[]={1,1,1,0};
-    
-    vector<int> vc(aa,aa+4);
-    string str = "aab";
-    vector<vector<string> > res = partition(str);
 
-    for (int i = 0; i < res.size(); ++i)
-    {
-        /* code */
-        for (int j = 0; j < res[i].size(); ++j)
-        {
-            /* code */
-            cout<<res[i][j]<<"  ";
-        }
-        cout<<endl;
-    }
 
-	// system("pause");
+	system("pause");
 
 
 	return 0;
