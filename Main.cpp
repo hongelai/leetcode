@@ -37,39 +37,20 @@ int findFirstUnique(vector<int> &v){
 
 	return *us.begin();
 }
-    int lengthOfLongestSubstring(string s) {
-        int res = 0;
-        vector<int> asci(256,-1); //mark the position of character
-        int start = 0,end = 0,size = s.length();
+    int titleToNumber(string s) {
         
-        while(end < size && start+res < size){
-            if(asci[s[end]] == -1){
-                asci[s[end++]] = end;
-          
-            }else{
-                res = max(end - start,res);
-                cout<<start<<" "<<end<<" "<<s.substr(start,end-1-start)<<endl;
-                int old_start = start;
-                start = asci[s[end]]+1;
-                while(old_start < start){
-                    asci[s[old_start++]] = -1;
-                }
-            }
-            
+        int size = s.size(),index = 0,sum = 0;
+
+        while(index < size){
+            sum = (s[index++] - 'A' + 1) + sum*26;
+            cout<<sum<<endl;
         }
-        if(!s.empty())
-        res = max(end - start + 1,res);
-        return res;
+        return sum;
     }
 int main ()
 {
-    int aa[]={2,1,3,2,4,2,5,2,6,2,2,2,3};
-    
-    vector<int> vc(aa,aa+13);
-    cout<<lengthOfLongestSubstring("qopubjguxhxdipfzwswybgfylqvjzhar")<<endl;
-
+    cout<<titleToNumber("AA")<<endl;  
 	system("pause");
-
 
 	return 0;
 }
