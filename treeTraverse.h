@@ -1,7 +1,26 @@
-//dfs
+    vector<int> preorderTraversal(TreeNode *root) {
+        vector<int> res;
+        stack<TreeNode *> stk;
+        TreeNode *cur = root;
+
+        while (cur || !stk.empty()){
+            if (cur){
+                res.push_back(cur->val);
+                stk.push(cur);
+                cur = cur->left;
+            }else{
+                cur = stk.top()->right;
+                stk.pop();
+            }
+        }
+        return res;
+    }
+//
 void in_order_traversal_iterative(BinaryTree *root) {
   stack<BinaryTree*> s;
   BinaryTree *current = root;
+  vector<int> res;
+
   while (!s.empty() || current) {
     if (current) {
       s.push(current);
@@ -9,7 +28,7 @@ void in_order_traversal_iterative(BinaryTree *root) {
     } else {
       current = s.top();
       s.pop();
-      cout << current->data << " ";
+      res.push_back(cur->val);  //difference between preorder and inorder
       current = current->right;
     }
   }
