@@ -37,19 +37,13 @@ int findFirstUnique(vector<int> &v){
 
 	return *us.begin();
 }
-    int titleToNumber(string s) {
-        
-        int size = s.size(),index = 0,sum = 0;
 
-        while(index < size){
-            sum = (s[index++] - 'A' + 1) + sum*26;
-            cout<<sum<<endl;
-        }
-        return sum;
-    }
 int main ()
 {
-    cout<<titleToNumber("AA")<<endl;  
+    int a = 10;
+    int *v = new int(a);
+    v[1] = 3;
+    cout<<v[1]<<" "<<v[2]<<endl;
 	system("pause");
 
 	return 0;
