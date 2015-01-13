@@ -37,13 +37,19 @@ int findFirstUnique(vector<int> &v){
 
 	return *us.begin();
 }
+void getGrayCode(int bitNum){
+    for(int i = 0; i < (int)pow(2, bitNum); i++){
+        int grayCode = (i >> 1) ^ i;
+        cout<<grayCode<<" ";
+    }
+}
 
 int main ()
 {
-    int a = 10;
-    int *v = new int(a);
-    v[1] = 3;
-    cout<<v[1]<<" "<<v[2]<<endl;
+    vector<string> str(pow(2,3),"");
+//    getGrayCode(2);
+      vector<int> res(2);
+      cout<<res[1]<<endl;
 	system("pause");
 
 	return 0;
