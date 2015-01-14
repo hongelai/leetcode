@@ -46,10 +46,7 @@ void getGrayCode(int bitNum){
 
 int main ()
 {
-    vector<string> str(pow(2,3),"");
-//    getGrayCode(2);
-      vector<int> res(2);
-      cout<<res[1]<<endl;
+
 	system("pause");
 
 	return 0;
