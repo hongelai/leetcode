@@ -13,6 +13,7 @@
 #include <limits>
 #include <unordered_set>
 #include <string.h>
+#include <string>
 #include <queue>
 
 using namespace std;
@@ -37,17 +38,12 @@ int findFirstUnique(vector<int> &v){
 
 	return *us.begin();
 }
-void getGrayCode(int bitNum){
-    for(int i = 0; i < (int)pow(2, bitNum); i++){
-        int grayCode = (i >> 1) ^ i;
-        cout<<grayCode<<" ";
-    }
-}
 
 int main ()
 {
-
-	system("pause");
-
+    string res= "";
+    res += 'a';
+    res  = (char)('c' - 1) + res;
+    cout<<res<<endl;
 	return 0;
 }

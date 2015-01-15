@@ -8,4 +8,39 @@
 
         return res;
     }
-//recursive
+    
+//recursive method
+        vector<int> grayCode(int n) {
+        vector<int> res;
+        if(n == 0){
+            res.push_back(0);
+            return res;
+        } 
+        vector<string> str = grayCodeRe(n);
+        for(int i = 0; i < pow(2,n); i++) res.push_back(binary2Int(str[i]));
+        return res;
+    }
+    vector<string> grayCodeRe(int n){
+        vector<string> str(pow(2,n),"");
+        if(n == 1){ 
+            str[0] += '0';
+            str[1] += '1';
+            
+            return str;
+        }
+        vector<string> grayCode = grayCodeRe(n-1);
+        for(int i = 0, j = str.size()-1; i < j; i++,j--){
+          
+            str[i] = '0' + grayCode[i];
+            str[j] = '1' + grayCode[i];
+        }
+        return str;
+    }
+    int binary2Int(string str){
+        // return stoi(str,nullptr,2); //use stl
+        int res = 0, length = str.length();
+        for(int i = length-1; i >= 0; i--){
+            res += (str[i]-'0')*pow(2,length - i - 1);
+        }
+        return res;
+    }
