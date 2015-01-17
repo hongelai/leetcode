@@ -21,7 +21,7 @@ void in_order_traversal_iterative(BinaryTree *root) {
   BinaryTree *current = root;
   vector<int> res;
 
-  while (!s.empty() || current) {
+  while (!s.empty() || current) { // || current because of first Node root
     if (current) {
       s.push(current);
       current = current->left;

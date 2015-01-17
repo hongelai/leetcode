@@ -41,9 +41,7 @@ int findFirstUnique(vector<int> &v){
 
 int main ()
 {
-    string res= "";
-    res += 'a';
-    res  = (char)('c' - 1) + res;
-    cout<<res<<endl;
+
+    cout<<INT_MAX<<endl;
 	return 0;
 }
