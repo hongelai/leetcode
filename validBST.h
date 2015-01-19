@@ -12,4 +12,43 @@
         return isBST;
     }
 
-    // use inorder traverse to bottom up
+    // Ensure that every next node of in-order traversal is larger than previous one. 
+    //Using boolean flag to start with the left most node.
+    bool isValidBST(TreeNode *root) {
+        
+        TreeNode* prev = NULL;
+        TreeNode* cur = root;
+        stack<TreeNode*> st;
+        
+        while(cur || !st.empty()){
+            if(cur){
+                st.push(cur);
+                cur = cur->left;
+            }else{
+                TreeNode* tmp = st.top();
+                //visit node
+                if(prev){
+                    if(tmp->val <= prev->val) return false;
+                }
+                prev = tmp;
+                
+                st.pop();
+                cur = tmp->right;
+            }
+        }
+        return true;
+    }
+
+    // solution 2: inorder recursive
+    bool isValidBST_2(TreeNode *root) {
+        TreeNode * prev = NULL;
+        return inorder(root, prev);
+    }
+    bool inorder(TreeNode * root, TreeNode*&prev) {
+        if (root == NULL) return true;
+        if (inorder(root->left, prev) == false) 
+            return false;
+        if (prev && root->val <= prev->val) return false;
+        prev = root;
+        return inorder(root->right,prev);
+    }
