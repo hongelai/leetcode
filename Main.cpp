@@ -38,10 +38,29 @@ int findFirstUnique(vector<int> &v){
 
 	return *us.begin();
 }
-
+    void dfs(int n, int k, int index, vector<int> &entry, vector<vector<int> > &res){
+        if(entry.size() == k){
+            res.push_back(entry);
+            for(auto it = entry.begin(); it != entry.end(); it++) cout<<*it<<" ";
+            cout<<endl;
+            return;
+        } 
+        
+        for(int i = index; i < n+1; i++){
+            entry.push_back(i);
+            dfs(n,k,i+1,entry,res);
+            entry.pop_back();
+        }
+    }
+    vector<vector<int> > combine(int n, int k) {
+        vector<vector<int> > res;
+        vector<int> entry;
+        dfs(n,k,1,entry,res);
+        return res;
+    }
 int main ()
 {
 
-    cout<<INT_MAX<<endl;
+    auto it = combine(4,2);
 	return 0;
 }
