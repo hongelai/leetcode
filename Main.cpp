@@ -38,42 +38,10 @@ int findFirstUnique(vector<int> &v){
 
 	return *us.begin();
 }
-    bool searchMatrix(vector<vector<int> > &matrix, int target) {
-        int row = matrix.size(), col = matrix[0].size();
-        if(target < matrix[0][0] || target > matrix[row-1][col-1]) return false;
-        
-        //binary search in first column
-        int desR,low = 0, high = row-1;
-        while(low < high){
-            int mid = (low + high) / 2;
-            if(target < matrix[mid][0]) high = mid;
-            else if(target > matrix[mid][0]){
-                low = mid;
-                if(low + 1 == high){
-                    if(target >= matrix[high][0]) low = high;
-                    else high = low;
-                }
-            } 
-            else return true;
-        }
-        cout<<low<<endl;
-        desR = low;
-        low = 0; 
-        high = col - 1;
-        
-        while(low <= high){
-            
-            int mid = (low + high) / 2;
-            if(target < matrix[desR][mid]) high = mid-1;
-            else if(target > matrix[desR][mid]) low = mid+1;
-            else return true;
-        }
-        return false;
-        
-    }
+
 int main ()
 {
-    vector<vector<int> > res {{1},{3}};
-    cout<<searchMatrix(res,3);
+    int i  = 3;
+    cout<< ++i * ++i <<endl;
 	return 0;
 }
