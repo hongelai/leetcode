@@ -31,3 +31,20 @@
         }
         return res;
     }
+    string countAndSay(int n) {
+     string res = "1";
+
+     while(--n){
+        string tmp = "";
+        int len = res.length();
+        for(int i = 0; i < len;){
+            int j = i+1;
+            while(j < len && res[j] == res[j-1]) j++;
+            tmp.push_back(j-i + '0');
+            tmp.push_back(res[i]);
+            i = j;
+        }
+        res = tmp;
+     }
+     return res;
+}
