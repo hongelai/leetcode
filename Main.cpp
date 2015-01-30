@@ -18,30 +18,26 @@
 
 using namespace std;
 
-int findFirstUnique(vector<int> &v){
+void findFirstUnique(vector<int> &v){
 
-	unordered_map<int,int> um;
-	unordered_set<int> us;
+	unordered_map<int,int> map;
 	for(int i = 0; i < v.size(); i++){
-		if(!um[v[i]]){
+		if(map.find(v[i]) == map.end()){
 			// um.insert(make_pair(a,1)); // cannot use insert again(duplicate), because !um[v[i]] will innitialize it as 0.
-			um[v[i]] = 1;
-			us.insert(v[i]);
+			map[v[i]] = 1;
 		}
-		else{
-			um[v[i]]++;
-			us.erase(v[i]);
-		}
+		else map[v[i]]++;
 	}
-	// for(auto it = um.begin();it!=um.end();it++) cout<<it->first<<" "<<it->second<<endl;
-	for(auto it = us.begin();it!=us.end();it++) cout<<*it<<" ";
+	for(auto it = v.begin();it != v.end(); it++) 
+		if(map[*it] == 1) cout<<*it<<" ";
 
-	return *us.begin();
 }
 
 int main ()
 {
-    cout<<getPermutation(2,2)<<endl;
+
+	int a[] = {1,1,2,2,3,2,4,5,5,4,6,7,6};
+    vector<int> vt(a,a+13) ;
 
 	return 0;
 }

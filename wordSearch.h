@@ -7,7 +7,7 @@
             if(index == word.size()-1) return true;
             bool res = false;
             visited[y][x] = true;
-            if(y-1 >=0)                   res = res || dfs(board,word,index+1,y-1,x,visited);
+            if(y-1 >=0)                                   res = res ||  dfs(board,word,index+1,y-1,x,visited);
             if(y+1 <=board.size()-1 && res == false)      res = res ||  dfs(board,word,index+1,y+1,x,visited);
             if(x-1 >= 0 && res == false)                  res = res ||  dfs(board,word,index+1,y,x-1,visited);
             if(x+1 <= board[0].size()-1 && res == false)  res = res ||  dfs(board,word,index+1,y,x+1,visited);
