@@ -41,7 +41,7 @@ int findFirstUnique(vector<int> &v){
 
 int main ()
 {
-    int i  = 3;
-    cout<< ++i * ++i <<endl;
+    cout<<getPermutation(2,2)<<endl;
+
 	return 0;
 }
