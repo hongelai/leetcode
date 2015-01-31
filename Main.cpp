@@ -38,8 +38,6 @@ int main ()
 
 	int a[] = {1,1,2,2,3,7,4,5,5,4,6,7,6};
     vector<int> vt(a,a+13) ;
-    cout<<vt.size()<<"  "<<vt[4]<<endl;
-    vt.erase(vt.begin()+2);
-    cout<<vt.size()<<"  "<<vt[4]<<endl;
+
 	return 0;
 }
