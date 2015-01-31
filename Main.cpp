@@ -39,5 +39,6 @@ int main ()
 	int a[] = {1,1,2,2,3,2,4,5,5,4,6,7,6};
     vector<int> vt(a,a+13) ;
 
+cout<<myvector[0]<<endl;
 	return 0;
 }
