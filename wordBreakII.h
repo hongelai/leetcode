@@ -36,3 +36,6 @@
         }
         return dp[size];
     }
+
+    //complexity O(n!)
+    //T(n)  = n * (T(n-1) + O(1))

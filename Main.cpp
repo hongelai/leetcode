@@ -39,10 +39,9 @@ int main ()
 	int a[] = {1,2,3,4,5,4,6};
     vector<int> vt(a,a+7) ;
     int i;
-    int dupe = 0;
-    for(i=0;i < vt.size();i++) {
-     dupe = dupe ^ vt[i] ^ i;
-    }
-    cout<<dupe<<endl;
+    vector<int> cp = vt;
+    cp[2] = 33;
+    cout<<vt[2]<<"  "<<cp[2]<<endl;
+    
 	return 0;
 }

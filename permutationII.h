@@ -28,3 +28,6 @@
             }
         }
     }
+
+    //complexity O(2^n)
+    //T(n) = n*(T(n) + O(1))
