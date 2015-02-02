@@ -34,10 +34,17 @@ void findFirstUnique(vector<int> &v){
 }
 
 
+void test(int n){
+	int dp[n];
+	dp[2] = 2343;
+	cout<<dp[2]<<"  "<<dp[1];
+}
+
 int main ()
 {
 	int a[] = {1,1,2,2,3,2,4,5,5,4,6,7,6};
     vector<int> vt(a,a+13) ;
-
+    
+    test(3);
 	return 0;
 }
