@@ -32,19 +32,35 @@ void findFirstUnique(vector<int> &v){
 		if(map[*it] == 1) cout<<*it<<" ";
 
 }
+string letterCombination(string s){
+	string res = "";
+	if(s.empty()) return res;
+ 	unordered_map<char,vector<char> > map;
+	char a1[] = {'a', 'b', 'c' };
+	char a2[] = {'d','e','f'};
+	char a3[] = {'g','h','i'};
+	char a4[] = {'j','k'};
+	map['1'].assign(a1,a1+3);
+	map['2'].assign(a2,a2+3);
+	map['3'].assign(a3,a3+3);
+	map['#'].assign(a4,a4+2);
+	int start = 0, end = 0, len = s.length();
 
+	while(end < len){
+		while(s[start] == s[end] && s[end] != '\0') end++;
+		int distance = end - start;
+		if(s[start] != '#' && s[start] != '0') res.append(1,map[s[start]][distance-1]);
+		start = end;
+	}
 
-void test(int n){
-	int dp[n];
-	dp[2] = 2343;
-	cout<<dp[2]<<"  "<<dp[1];
+	return res;
 }
 
 int main ()
 {
-	int a[] = {1,1,2,2,3,2,4,5,5,4,6,7,6};
+	int a[] = {1,-1,20,12,-300,900,-901,5,5,4,6,7,6};
     vector<int> vt(a,a+13) ;
     
-    test(3);
+    cout<< letterCombination("222#1312000111");
 	return 0;
 }
