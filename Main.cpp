@@ -32,26 +32,11 @@ void findFirstUnique(vector<int> &v){
 		if(map[*it] == 1) cout<<*it<<" ";
 
 }
-    int singleNumber(int A[], int n) {
-        //solution one: use count[32] to count the bit occurrence of each bit, find out those bit occurrence cannot be devide by 3
-        int W = sizeof(int)*8;
-        vector<int> count(W,0);
-        int res = 0;
-        
-        for(int i = 0; i < W; i++)
-            for(int j = 0; j < n; j++){
-                if((A[j]>>i)&1) count[i]++; //first bit >>0, second bit >>1
-            }
-        
-        for(int k = W-1; k >= 0; k--) res += (count[k]%3) << k;
-        return res;
-    }
+
 int main ()
 {
+	int a[] = {1,1,2,2,3,2,4,5,5,4,6,7,6};
+    vector<int> vt(a,a+13) ;
 
-	int a[] = {0,1,0,1,0,1,99};
-    vector<int> vt(a,a+7) ;
-    cout<<singleNumber(a,7)<<endl;
-    
 	return 0;
 }
