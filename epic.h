@@ -181,3 +181,51 @@ string letterCombination(string s){
 
 	return res;
 }
+/******************** show step to anagram *******************************************/
+void anagramProcedure(string a, string b){
+	int len = a.length();
+	for(int i = 0; i < len; i++)
+	{
+		int pos = b.find(a[i]);
+		for(int j = pos; j > i; j--){
+			swap(b[j],b[j-1]);
+			cout<<b<<endl;
+		}
+	}
+}
+/****************** find the longest substring that have the same amount of 0s and 1s **/
+	int max01Len(int A[], int n) {
+		if (n == 0) {
+			return 0;
+		}
+		vector<int> dp(n, -1);
+		unordered_map<int, vector<int>> umap;
+		int res = 0;
+		int sum = 0;
+		for (int i = 0; i < n; i++) {
+			sum += A[i] == 0 ? -1 : A[i];
+			dp [i] = sum;
+			umap[sum].push_back(i);
+			if (sum == 0) { // 从0开始的子数组
+				res = max(res, i + 1);
+			}
+		}
+		// 对于子数组和相同的多个位置求他们之间的距离
+		unordered_map<int, vector<int>>::iterator iter = umap.begin();
+		while (iter != umap.end()) {
+			if (iter->second.size() <= 1) {
+				iter++;
+				continue;
+			}
+			int minIndex = min(iter->second[0], iter->second[1]);
+			int maxIndex = max(iter->second[0], iter->second[1]);
+			for (int i = 2; i < iter->second.size(); i++) {
+				minIndex = min(minIndex, iter->second[i]);
+				maxIndex = max(maxIndex, iter->second[i]);
+			}
+			res = max(res, maxIndex - minIndex);
+			iter++;
+		}
+		return res;
+	}
+

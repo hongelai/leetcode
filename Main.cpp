@@ -33,10 +33,28 @@ void findFirstUnique(vector<int> &v){
 
 }
 
+bool isAnagram(string a, string b){
+	sort(a.begin(),a.end());
+	sort(b.begin(),b.end());
+	return a == b;
+}
+
+int findMaxWindow(string a, string b){
+	int len = a.length();
+	int start = 0, end = len - 1;
+	
+	for(int ws = len; ws > 0; ws--)
+		for(int i = 0; i + ws - 1 < len; i++){
+			string str1 = a.substr(i, ws);
+			string str2 = b.substr(i, ws);
+			if(isAnagram(str1, str2)) return ws;
+		}
+	return -1;
+}
 int main ()
 {
 	int a[] = {1,-1,20,12,-300,900,-901,5,5,4,6,7,6};
     vector<int> vt(a,a+13) ;
-
+    cout<<findMaxWindow("aABCfDEFG","dfDBCAPFG");
 	return 0;
 }
