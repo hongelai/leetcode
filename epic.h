@@ -92,3 +92,31 @@ void wellOrder(int len){
     }  
 
 
+/****************************print all rect with area A and vetex (x,y)***********************/
+    void printAllRect(vector<vector<int> > mt, int x, int y, int a){
+
+    int len = 1;
+    int col = mt[0].size();
+    int row = mt.size();
+
+    for(int i = len; i <= a; i++){
+        if(a%i != 0) continue;
+        if (x - i >= 0 && y + a/i < col)
+        {
+          cout<<"1("<<x-i<<","<<y<<")"<<"("<<x-i<<","<<(y + a/i)<<")"<<"("<<x<<","<<(y+a/i)<<")"<<endl;
+        }
+        
+        if (x + a/i <= row && y + i < col)
+        {
+          cout<<"2("<<x<<","<<y+i<<")"<<"("<<x+a/i<<","<<(y + i)<<")"<<"("<<x + a/i<<","<<y<<")"<<endl;
+        }
+        if (x + i <= row && y - a/i >= 0) 
+        {
+          cout<<"3("<<x+i<<","<<y<<")"<<"("<<x + i<<","<<(y - a/i)<<")"<<"("<<x<<","<<(y - a/i)<<")"<<endl;
+        }
+        if (x - a/i >= 0 && y - i >= 0) 
+        {
+          cout<<"4("<<x<<","<<y - i<<")"<<"("<<x-a/i<<","<<(y - i)<<")"<<"("<<x -a/i<<","<<y<<")"<<endl;
+        }
+    }
+}

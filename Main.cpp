@@ -32,11 +32,55 @@ void findFirstUnique(vector<int> &v){
 		if(map[*it] == 1) cout<<*it<<" ";
 
 }
+    int singleNumber(int A[], int n) {
+        //solution one: use count[32] to count the bit occurrence of each bit, find out those bit occurrence cannot be devide by 3
+        int W = sizeof(int)*8;
+        vector<int> count(W,0);
+        int res = 0;
+        
+        for(int i = 0; i < W; i++)
+            for(int j = 0; j < n; j++){
+                if((A[j]>>i)&1) count[i]++; //first bit >>0, second bit >>1
+            }
+        
+        for(int k = W-1; k >= 0; k--) res += (count[k]%3) << k;
+        return res;
+    }
 
+void getRepeatedElement(int a[] , int len) 
+{ 
+    int i = 0; 
+    int j = len -1; 
+    int n = len; 
+    while (i <= j) 
+    { 
+        if (i < j) 
+        { 
+            if (a[i] != a[j]) 
+            { 
+              j--; 
+            }else if (a[i] == a[j]) 
+            { 
+                cout<<a[i]<<" ";
+//                break; 
+            } 
+        } 
+        if( i== n-1) 
+        { 
+          cout<<"All Elements are Unique"; 
+        } 
+        if (j == i) 
+        { 
+            j = n - 1; 
+            i++; 
+        } 
+    
+    } 
+}
 int main ()
 {
-	int a[] = {1,1,2,2,3,2,4,5,5,4,6,7,6};
-    vector<int> vt(a,a+13) ;
 
+	int arr[] = {1,21,3,40,3,50,43,2,1};
+    getRepeatedElement(arr,9);
 	return 0;
 }
