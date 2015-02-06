@@ -51,10 +51,43 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
+    int trap(int A[], int n) {
+        int maxCur = 0;
+        int maxNext = 0;
+        int res = 0;
+        int size = n + 2;
+        vector<int> B(n+2,0);
+        for(int i = 1; i <= n; i++) B[i] = A[i-1];
+        
+        for(int i = 1; i <= n;){
+            for(int j = i; j <= n; j++){ // find peak
+                if(B[j] >= B[j-1] && B[j] > B[j+1]){
+                    if(B[maxCur] == 0){
+                        maxCur = j;
+                    }else{
+                        maxNext = j;
+                        break;
+                    }
+                }
+            }
+            if(maxCur != maxNext && maxCur != 0 && maxNext != 0){
+                int high = min(B[maxCur], B[maxNext]);
+                for(int k = maxCur + 1; k < maxNext; k++){
+                    res += high - B[k];
+                }
+                i = maxNext+1;
+                maxCur = maxNext;
+            }else{
+                i++;
+            }
+            
+        }
+        return res;
+    }
 int main ()
 {
-	int a[] = {1,-1,20,12,-300,900,-901,5,5,4,6,7,6};
+	int a[] = {5,4,1,2};
     vector<int> vt(a,a+13) ;
-    cout<<findMaxWindow("aABCfDEFG","dfDBCAPFG");
+    cout<<trap(a,4)<<endl;
 	return 0;
 }
