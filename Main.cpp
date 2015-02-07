@@ -51,11 +51,35 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
+    int maximalRectangle(vector<vector<char> > &matrix) {
+        if (matrix.empty() || matrix[0].empty()) return 0;
+        int row = matrix.size(), col = matrix[0].size();
+        int result = 0;
+        vector<int> height(col+1,0);
+        
+        for(int i = 0; i < row; i++){//generate a histogram each row
+            stack<int> st;
+            for(int j = 0; j < col; j++){
+                height[j] = matrix[i][j]  == '1' ? height[j] + 1 : 0;
+            }
+            for(int k = 0; k <= col;){
 
+                if(st.empty() || height[k] >= height[st.top()]) st.push(k++);
+                else{
+                    int tmp = st.top();
+                    cout<<height[tmp]<<endl;
+                    st.pop();
+                    result = max(result,height[tmp]*(st.empty()? k: k-st.top()-1));
+                }
+            }
+        }
+        return result;
+    }
 int main ()
 {
 	int a[] = {5,4,1,2};
   vector<int> vt(a,a+13) ;
-
+  vector<vector<char> > m(1,vector<char>(1,'1'));
+  cout<<maximalRectangle(m)<<endl;
 	return 0;
 }
