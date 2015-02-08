@@ -6,11 +6,10 @@ void sayNum(int n)
     vector<int> num;
     stack<string> s;
     
-    for(; n/10 != 0;){
+    while(n){
         num.push_back(n%10);
         n /= 10;
     }
-    num.push_back(n);
     
     int count = 0;
 
