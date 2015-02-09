@@ -59,11 +59,29 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
+bool oneEditDistance(string a, string b){
+	if (a.length() > b.length()) swap(a ,b);
+	if (b.length() - a.length() > 1) return false;
 
+	bool haveOne = false;
+	for (int i = 0, j = 0; i < a.length(); i++, j++) { //
+		if (a[i] != b[j]) {
+			if (haveOne) {
+				return false;
+			} else {
+				haveOne = true;
+				if(a.length() < b.length()) i--;
+			}
+		}
+	}
+	cout<<"out"<<endl;
+	return haveOne || a.length() < b.length(); // 处理前缀 abc abcd,
+}
 int main ()
 {
+<<<<<<< HEAD
 	int a[] = {5,4,1,2,3,1,4,5};
     vector<int> vt(a,a+8) ;
-    cout<<findMaxWindow("afbasketddd","eeketbasfe")<<endl;
+
 	return 0;
 }
