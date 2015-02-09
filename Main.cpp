@@ -34,9 +34,17 @@ void findFirstUnique(vector<int> &v){
 }
 
 bool isAnagram(string a, string b){
-	sort(a.begin(),a.end());
-	sort(b.begin(),b.end());
-	return a == b;
+	int count[256] = {0};
+  for (int i = 0; i < a.length(); ++i) count[a[i]]++;
+  for (int i = 0; i < b.length(); ++i) count[b[i]]--;
+  for (int i = 0; i < 256; ++i)
+  {
+    if (count[i] != 0)
+    {
+      return false;
+    }
+  }
+  return true;
 }
 
 int findMaxWindow(string a, string b){
@@ -54,13 +62,8 @@ int findMaxWindow(string a, string b){
 
 int main ()
 {
-	int a[] = {5,4,1,2};
-  vector<int> vt(a,a+13) ;
-  char m[][6] = {{0,0,0,0,0,0},
-				 {0,1,0,1,1,0},
-				 {0,1,1,1,1,0},
-				 {0,1,1,1,1,0}};
-  vector<vector<int> > mm(1,vector<int>(1,1));			 
-  maximalRectangle(mm);
+	int a[] = {5,4,1,2,3,1,4,5};
+    vector<int> vt(a,a+8) ;
+    cout<<findMaxWindow("afbasketddd","eeketbasfe")<<endl;
 	return 0;
 }
