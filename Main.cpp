@@ -51,16 +51,28 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
+bool oneEditDistance(string a, string b){
+	if (a.length() > b.length()) swap(a ,b);
+	if (b.length() - a.length() > 1) return false;
 
+	bool haveOne = false;
+	for (int i = 0, j = 0; i < a.length(); i++, j++) { //
+		if (a[i] != b[j]) {
+			if (haveOne) {
+				return false;
+			} else {
+				haveOne = true;
+				if(a.length() < b.length()) i--;
+			}
+		}
+	}
+	cout<<"out"<<endl;
+	return haveOne || a.length() < b.length(); // 处理前缀 abc abcd,
+}
 int main ()
 {
 	int a[] = {5,4,1,2};
-  vector<int> vt(a,a+13) ;
-  char m[][6] = {{0,0,0,0,0,0},
-				 {0,1,0,1,1,0},
-				 {0,1,1,1,1,0},
-				 {0,1,1,1,1,0}};
-  vector<vector<int> > mm(1,vector<int>(1,1));			 
-  maximalRectangle(mm);
+  	vector<int> vt(a,a+13) ;
+  	cout<<oneEditDistance("abc","adde")<<endl;
 	return 0;
 }
