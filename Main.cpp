@@ -59,29 +59,39 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
-bool oneEditDistance(string a, string b){
-	if (a.length() > b.length()) swap(a ,b);
-	if (b.length() - a.length() > 1) return false;
-
-	bool haveOne = false;
-	for (int i = 0, j = 0; i < a.length(); i++, j++) { //
-		if (a[i] != b[j]) {
-			if (haveOne) {
-				return false;
-			} else {
-				haveOne = true;
-				if(a.length() < b.length()) i--;
-			}
-		}
-	}
-	cout<<"out"<<endl;
-	return haveOne || a.length() < b.length(); // 处理前缀 abc abcd,
-}
+ int numDistinct_2(string S, string T) {
+        int M = S.size();
+        int N = T.size();
+        vector<int> dp(N + 1);
+        dp[0] = 1;
+        for (int i = 1; i <= M; ++i) {
+            for (int j = N; j >=1; --j) {
+                dp[j] = dp[j] + (S[i-1] == T[j-1] ? dp[j-1] : 0);
+            }
+        }
+        return dp[N];
+    }
+ int numDistinct_1(string S, string T) {
+        int M = S.size();
+        int N = T.size();
+        vector<vector<int> > dp(M+1, vector<int>(N+1));
+        for (int j = 0; j <= N; ++j) {
+            dp[0][j] = 0;
+        }
+        for (int i = 0; i <= M; ++i) {
+            dp[i][0] = 1;
+        }
+        for (int i = 1; i <= M; ++i) {
+            for (int j = 1; j <= N; ++j) {
+                dp[i][j] = dp[i-1][j] + (S[i-1] == T[j-1] ? dp[i-1][j-1] : 0);
+            }
+        }
+        return dp[M][N];
+    }
 int main ()
 {
-<<<<<<< HEAD
 	int a[] = {5,4,1,2,3,1,4,5};
     vector<int> vt(a,a+8) ;
-
+    cout<<numDistinct_1("abc","abd")<<endl;
 	return 0;
 }
