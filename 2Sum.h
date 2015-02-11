@@ -2,7 +2,7 @@
 //先排序，然后左右夹逼 求得目标值
     vector<int> twoSum(vector<int> &numbers, int target) {
         vector<int> res;
-        multimap<int,int> map;
+        multimap<int,int> map;//multimap will sort element
         for(auto it = numbers.begin(); it != numbers.end(); it++){
             map.insert(make_pair(*it,it-numbers.begin()));
         }

@@ -13,7 +13,7 @@
             string str = Q.front();
             if(count == 0){
                 count = Q.size();
-                level++;
+                level++; //可以用一个pair的second值记录层数， 然后找到之后返回second的值
             } 
             Q.pop_front();
             count--;

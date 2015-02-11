@@ -7,7 +7,7 @@
         int target = 0;
         
         for(int i = 0; i < num.size()-2; i++){
-            if(num[i] == num[i-1]) continue;   //跳过，例如-1，-1，-1,0,1
+            if(n > 0 && num[i] == num[i-1]) continue;   //跳过，例如-1，-1，-1,0,1
             
             int pre = i+1, last = num.size()-1;
 
