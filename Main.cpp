@@ -59,12 +59,33 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
-
+    vector<string> findRepeatedDnaSequences(string s) {
+        unordered_map<char,int> cast{{'A',0},{'C',1},{'G',3},{'T',2}};//map A C G T to 00 01 11 10
+        unordered_map<int, int> map;
+        vector<string> res;
+        int len = s.length();
+        if (len < 10) return res;
+        int i = 0, init = 0, mask = 0xFFFFF;//get lower 20 (2x*10) bit
+        
+        while (i < 9) {  //only get to 9, when it reach 10, then we have to put it in the map
+            init = (init << 2 & mask) | cast[s[i++]];
+        }
+        while (i < len) {
+            init = (init << 2 & mask) | cast[s[i++]];
+            if(map[init]++){
+                string str = s.substr(i-9,10);
+                res.push_back(str);
+                cout<<str<<endl;
+            }
+        }
+        return res;
+    }
 
 int main ()
 {
-	int a[] = {5,4,1,2};
-  	vector<int> vt(a,a+13) ;
-
+	int a[] = {5,4,1,2,-1,13,3,2,};
+  int b[] = {1,1,1,1,1,1,5,5,5,5,5};
+  	vector<int> vt(b, b+11) ;
+    findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT");
 	return 0;
 }
