@@ -60,11 +60,23 @@ int findMaxWindow(string a, string b){
 	return -1;
 }
 
+    int findKthNumber(int A[], int m, int B[], int n, int k){
+//        assert(k <= m+n && k);
+        if(m == 0) return B[k-1];
+        if(n == 0) return A[k-1];
+        if(k == 1) return min(A[0], B[0]);
+        int h = k/2;
+        int asub = min(m, h);
+        int bsub = min(n, h);
+        if(A[asub-1] > B[bsub-1]) return findKthNumber(A, m, B+bsub, n-bsub, k-bsub);
+        else return findKthNumber(A+asub, m-asub, B, n, k-asub);
+    }
 
 int main ()
 {
-	int a[] = {5,4,1,2,-1,13,3,2,};
-  int b[] = {1,1,1,1,1,1,5,5,5,5,5};
-  	vector<int> vt(b, b+11) ;
+	int A[] = {};
+    int B[] = {2,3};
+    int m = 0, n = 2;
+  	cout<<((double)findKthNumber(A, m, B, n, (m+n)/2) + findKthNumber(A, m, B, n, (m+n)/2 + 1)) / 2<<endl;
 	return 0;
 }
