@@ -18,6 +18,8 @@
         return res;
     }
 
+
+
     //trie solution
     int buf[1024*1024];
     int cur_button;
