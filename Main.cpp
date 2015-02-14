@@ -60,23 +60,33 @@ int findMaxWindow(string a, string b){
 	return -1;
 }
 
-    int findKthNumber(int A[], int m, int B[], int n, int k){
-//        assert(k <= m+n && k);
-        if(m == 0) return B[k-1];
-        if(n == 0) return A[k-1];
-        if(k == 1) return min(A[0], B[0]);
-        int h = k/2;
-        int asub = min(m, h);
-        int bsub = min(n, h);
-        if(A[asub-1] > B[bsub-1]) return findKthNumber(A, m, B+bsub, n-bsub, k-bsub);
-        else return findKthNumber(A+asub, m-asub, B, n, k-asub);
-    }
+double median(int arr[], int n){
+  if (n % 2 == 0)
+  {
+    return ((double)arr[n/2 - 1]  + arr[n/2]) / 2;
+  } else {
+    return arr[n/2];
+  }
+}
+double findMedian(int A[], int m, int B[], int n){
+  cout<<m <<"-"<<A[0]<<" "<<n<<"-"<<B[0]<<endl;
+  if (m == 0) return median(B, n);
+  if (n == 0) return median(A, m);
+  if (m == 1 && n == 1) return ((double)A[0] + B[0]) / 2;
+  if (A[m/2 - 1] > B[n/2 - 1])
+  {
+    return findMedian(A, m - m/2, B+n/2, n - n/2);
+  } else {
+    return findMedian(A+m/2, m - m/2, B, n - n/2);
+  }
+}
+
 
 int main ()
 {
-	int A[] = {};
-    int B[] = {2,3};
-    int m = 0, n = 2;
-  	cout<<((double)findKthNumber(A, m, B, n, (m+n)/2) + findKthNumber(A, m, B, n, (m+n)/2 + 1)) / 2<<endl;
+	int A[] = {1,3,7,13,23};
+  int B[] = {2,7,8,33,44,55};
+  int m = 0, n = 2;
+  cout<<findMedian(A,5, B, 6)<<endl;
 	return 0;
 }
