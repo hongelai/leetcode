@@ -8,24 +8,21 @@ bool isRotation(String s1, String s2) {
 }
 
 bool grayCode(byte term1, byte term2) {
-	byte x = (byte)(term1 ^ term2);
-	int count = 0;
-
-	while(x != 0) {
+	byte x = (byte)(term1 ^ term2);.
+	int total = 0;
+	while(x != 0){
+		x = (byte) (x & (x - 1));
 		total++;
-		x = (byte)(x & (x-1));
 	}
-	if (total == 1) return true;
-	else return false;
+	if(total == 1) return 1; else return 0;
 }
 
 String remove(String string) {
-	StringBuilder sb = new StringBuilder();
+	StringBuffer sb = new StringBuffer();
 	String v = "aeiouAEIOU";
-
-	for (int i = 0; i < string.length(); i++) {
+	for(int i = 0; i < string.length(); i++){
 		if(v.indexOf(string.charAt(i)) > -1) continue;
-		else sb.append(string.charAt(i));
+		sb.append(string.charAt(i));
 	}
-	return sb;
+	return sb.toStirng();
 }
