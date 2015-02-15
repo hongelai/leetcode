@@ -2,9 +2,9 @@ bool isRotation(String s1, String s2) {
 	int len = s1.length();
 	if (len == s2.length() && len > 0){
 		String ss1 = s1 + s1;
-		return isSubstring(ss1, s2);// ss1.indexOf(s2) != -1;
+		return ss1.indexOf(s2) != -1 ? 1 : -1;
 	}
-	return false;
+	return -1;
 }
 
 bool grayCode(byte term1, byte term2) {
@@ -17,7 +17,7 @@ bool grayCode(byte term1, byte term2) {
 	if(total == 1) return 1; else return 0;
 }
 
-String remove(String string) {
+String delelteVowels(String string) {
 	StringBuffer sb = new StringBuffer();
 	String v = "aeiouAEIOU";
 	for(int i = 0; i < string.length(); i++){
