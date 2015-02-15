@@ -87,6 +87,8 @@ int main ()
 	int A[] = {1,3,7,13,23};
   int B[] = {2,7,8,33,44,55};
   int m = 0, n = 2;
-  cout<<findMedian(A,5, B, 6)<<endl;
+  int x= 0;
+  int y = x&(x-1);
+  cout<<y<<endl;
 	return 0;
 }
