@@ -80,6 +80,6 @@ int main ()
 	int A[] = {1,3,7,13,23};
   int B[] = {2,7,8,33,44,55};
   int m = 0, n = 2;
-  grayCode(3);
+
 	return 0;
 }
