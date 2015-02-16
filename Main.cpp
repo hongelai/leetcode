@@ -59,34 +59,27 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
-
-double median(int arr[], int n){
-  if (n % 2 == 0)
-  {
-    return ((double)arr[n/2 - 1]  + arr[n/2]) / 2;
-  } else {
-    return arr[n/2];
+int grayCode1(char *s1, char *s2) {
+  if (strlen(s1) != strlen(s2)) return -1;
+  int count = 0;
+  for (int i = 0; i < strlen(s1); i++){
+    if(s1++ == s2++) continue;
+    else count++;
   }
+  return count == 1 ? 1: -1;
 }
-double findMedian(int A[], int m, int B[], int n){
-  cout<<m <<"-"<<A[0]<<" "<<n<<"-"<<B[0]<<endl;
-  if (m == 0) return median(B, n);
-  if (n == 0) return median(A, m);
-  if (m == 1 && n == 1) return ((double)A[0] + B[0]) / 2;
-  if (A[m/2 - 1] > B[n/2 - 1])
-  {
-    return findMedian(A, m - m/2, B+n/2, n - n/2);
-  } else {
-    return findMedian(A+m/2, m - m/2, B, n - n/2);
-  }
-}
-
-
+    void grayCode(int n) {
+        vector<int> res(1<<n);
+        for(int i = 0; i < 1<<n; i++){
+            res[i] = (i >> 1) ^ i; //GrayCode(n) = B(n) XOR B(n+1). B(n)表示n的二进制，B(n+1)表示n右移一位的二进制
+            cout<<res[i]<<" ";
+          }
+    }
 int main ()
 {
 	int A[] = {1,3,7,13,23};
   int B[] = {2,7,8,33,44,55};
   int m = 0, n = 2;
-  cout<<findMedian(A,5, B, 6)<<endl;
+  grayCode(3);
 	return 0;
 }
