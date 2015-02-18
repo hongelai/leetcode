@@ -202,11 +202,11 @@ void anagramProcedure(string a, string b){
 		unordered_map<int, vector<int>> umap;
 		int res = 0;
 		int sum = 0;
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++) { //把0改成-1，如果两个位置的sum是相等的，说明这段距离的0 和 1是相同的
 			sum += A[i] == 0 ? -1 : A[i];
 			dp [i] = sum;
 			umap[sum].push_back(i);
-			if (sum == 0) { // 从0开始的子数组
+			if (sum == 0) { // 从0开始的子数组，必须包含这种特殊情况用来比较。因为不能从index 位-1 开始算，要是从0开始就是的话，会少算2个。
 				res = max(res, i + 1);
 			}
 		}
@@ -223,7 +223,7 @@ void anagramProcedure(string a, string b){
 				minIndex = min(minIndex, iter->second[i]);
 				maxIndex = max(maxIndex, iter->second[i]);
 			}
-			res = max(res, maxIndex - minIndex);
+			res = max(res, maxIndex - minIndex);//从minIndex+1 --》 maxIndex是目标区间
 			iter++;
 		}
 		return res;
