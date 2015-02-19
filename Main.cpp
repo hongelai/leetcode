@@ -63,6 +63,6 @@ int findMaxWindow(string a, string b){
 
 int main ()
 {
-  cout<<isValidPw("18828838","8123")<<endl;
+  seperateWord("i loafss tha/d   .mmmt kk");
 	return 0;
 }

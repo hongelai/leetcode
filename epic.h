@@ -492,4 +492,21 @@ bool isValidPw(string expected, string actual) {
   while(i < expected.length() && expected[i] == faultKey) ++i;
   return (i == expected.length() && j == actual.length()) ? true : false; 
 }
-/******************************************/
+/*************cut word that is even and longer than 4*************************/
+string seperateWord(string s) {
+  int start = 0, end = 0;
+
+  while(end < s.length()) {
+    while(s[start] == ' ' && start < s.length()) start++;
+    end = start;
+    while(end < s.length() && isalpha(s[end])) end++;
+    if (end - start >= 4 && (end - start)%2 == 0)
+    {
+        cout<<"int"<<endl;
+      int mid = (start + end) / 2;
+      s.insert(mid, 1, ' ');
+    } 
+    start = end + 1;
+  }
+  return s;
+}
