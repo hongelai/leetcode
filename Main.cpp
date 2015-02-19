@@ -59,31 +59,10 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
-int grayCode1(char *s1, char *s2) {
-  if (strlen(s1) != strlen(s2)) return -1;
-  int count = 0;
-  for (int i = 0; i < strlen(s1); i++){
-    if(s1++ == s2++) continue;
-    else count++;
-  }
-  return count == 1 ? 1: -1;
-}
-    void grayCode(int n) {
-        vector<int> res(1<<n);
-        for(int i = 0; i < 1<<n; i++){
-            res[i] = (i >> 1) ^ i; //GrayCode(n) = B(n) XOR B(n+1). B(n)表示n的二进制，B(n+1)表示n右移一位的二进制
-            cout<<res[i]<<" ";
-          }
-    }
+
+
 int main ()
 {
-	int A[] = {1,3,7,13,23};
-  int B[] = {2,7,8,33,44,55};
-  int m = 0, n = 2;
-  int C[] = {1};
-  int start = -1, end = 1;
-  while(end - start > 1) {
-    cout<<"end"<<endl;
-  }
+  cout<<isValidPw("18828838","8123")<<endl;
 	return 0;
 }

@@ -411,5 +411,85 @@ vector<string> permuteLowerCase(string s){
   return res;
 }
 
-/********/
+/****output based on vowel****/
 
+vector<string> splitString(string s, unordered_map<char, vector<string> > &map, string &seq) {
+  string v = "aeiou";
+  vector<string> res;
+  int start = 0, end = 0;
+
+  while(end < s.length()) {
+      while(s[end] != ' ' && s[end] != '\0') end++;
+      string str = s.substr(start, end - start);
+      if (str != " " && !str.empty()) {
+          res.push_back(str);
+          char c = tolower(str[0]);
+          if (v.find(c) != string::npos)
+          { 
+              if (seq.find(c) == string::npos) {
+                seq.push_back(c);
+              }
+              map[c].push_back(str);
+          }
+      }
+      start = end + 1; 
+      end = start;
+  }
+
+  return res;
+}
+void outputVowel(string s){
+  unordered_map<char, vector<string> > map;
+  string v = "aeiou";
+  string seq = "";
+  vector<string> strs = splitString(s, map, seq);
+  
+  string newstr = "";
+  for (int i = 0; i < seq.length(); ++i)
+  {
+    for (int j = 0; j < map[seq[i]].size(); ++j)
+    {
+        newstr += map[seq[i]][j] + " ";
+    }
+    string remain = "";
+    for (int k = 0; k < strs.size(); )
+    {
+      if (tolower(strs[k][0]) != seq[i])
+      {
+        remain += strs[k] + " ";
+        k++;
+      } else {
+        strs.erase(strs.begin() + k);
+      }
+    }
+
+     cout<<newstr + remain<<endl;
+  }
+}
+
+/********************valid password with broken key******************/
+bool isValidPw(string expected, string actual) {
+  int i = 0, j = 0;
+  char faultKey = '\0';
+
+  for(; i < expected.length() && j < actual.length(); i++) {
+    if (expected[i] == actual[j])
+    {
+      if (faultKey != '\0' && actual[i] == faultKey)
+      {
+        return false;
+      }
+      j++;
+    } else {
+      if (faultKey == '\0')
+      {
+          faultKey = expected[i];
+      } else {
+          if (expected[i] != faultKey) return false;
+      }
+    }
+  }
+  while(i < expected.length() && expected[i] == faultKey) ++i;
+  return (i == expected.length() && j == actual.length()) ? true : false; 
+}
+/******************************************/
