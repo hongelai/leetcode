@@ -277,4 +277,139 @@ int batteryCombination(vector<int> num, int target) {
   }
   return dp[target];
 }
+/*********************  make exchange         ****************************/
+void dfs(vector<vector<float> > &res, vector<float> &entry, float target, vector<float> coin, bool &found) {
+    if(target == 0){
+      res.push_back(entry);
+      for(int i = 0; i < res[res.size() - 1].size(); i++) cout<< res[res.size() - 1][i] << " ";
+       cout<<endl;
+      found = true;
+      return;
+    }
+    // for(int i = 0; i < res.size(); i++) cout<< res[i] << " ";
+    //   cout<<endl;
+    for(int i = 0; i < coin.size(); i++) {
+      if(!found && coin[i] <= target) {
+        cout<<target<<endl;
+        entry.push_back(coin[i]);
+        dfs(res, entry, target - coin[i], coin, found);
+        entry.pop_back();
+      }
+      // if(found) break;
+    }
+}
+vector<float> exchangeMoney(vector<float> coin, float target) {
+    vector<vector<float> > res;
+    vector<float> entry;
+    if(coin.size() == 0 || target == 0) return entry;
+    bool found = false;
+    sort(coin.begin(), coin.end(), greater<float>());
+    dfs(res, entry, target, coin, found);
+    return res[0];
+}
+//dp solution
+int helper(vector<vector<int> > &map, vector<int> &num, int amount, int index){
+  if (map[amount][index] > 0) 
+  {
+    return map[amount][index];
+  }
+  if(index >= num.size() - 1){
+    if(amount%num[index] == 0) return 1;
+    else return 0;
+  }
+  int count = 0;
+  for(int i = 0; i * num[index] < amount; i++) {
+    count += helper(map, num, amount - i * num[index], index + 1);
+  }
+  return count;
+}
+int makeChange(int amount, vector<int> num){
+  vector<vector<int> > map(amount + 1, vector<int>(num.size()));
+  if (amount == 0 || num.size() == 0)
+  {
+    return 0;
+  }
+  return helper(map, num, amount, 0);
+}
+
+
+
+/***   phone number combination****/
+void dfs(unordered_map<char, string> &map, string &entry, string &s, int index){
+  if (index == s.length()) {
+    cout<<entry<<endl;
+    return;
+  }
+  if (map[s[index]].length() == 0)
+  {
+    dfs(map, entry, s, index + 1);
+  } else {
+    for (int i = 0; i < map[s[index]].length(); i++) {
+      entry.push_back(map[s[index]][i]);
+      dfs(map, entry, s, index + 1);
+      entry.pop_back();
+    }
+  }
+}
+
+void phoneNum(string s){
+  unordered_map<char, string> map;
+  string entry;
+  map['9'] = "p";
+  map['5'] = "";
+  map['1'] = "abc";
+  map['2'] = "de";
+  dfs(map, entry, s, 0);
+}
+
+
+/**************permutate lower case letter***************/
+void dfs(vector<string> &res, string &path, int index, const string &s, 
+                          vector<int> &position, vector<char> &letters, vector<bool> used) {
+  if (index == position.size())
+  {
+    res.push_back(path);
+    cout<<path<<endl;
+    return;
+  }
+  int lastIndex = -1;
+  for (int j = 0; j < letters.size(); ++j)
+  {
+    if(lastIndex != -1 && letters[lastIndex] == letters[j]) continue;// 同一个位置不允许相同的字母
+    if (!used[j] ) 
+    {
+      lastIndex = j;
+      used[j] = true;
+      char c = path[position[index]];
+      path[position[index]] = letters[j];
+      dfs(res, path, index + 1, s, position, letters, used);
+      path[position[index]] = c;
+      used[j] = false;
+    }
+  }
+}
+
+vector<string> permuteLowerCase(string s){
+  vector<string> res; 
+  if (s.length() == 0) return res;
+  vector<int> position;
+  vector<char> letters;
+  string path = s;
+
+  for (int i = 0; i < s.length(); ++i)
+  {
+    if (s[i] <= 'z' && s[i] >= 'a')
+    {
+      letters.push_back(s[i]);
+      position.push_back(i);
+    }
+  }
+  sort(letters.begin(), letters.end());
+  vector<bool> used(letters.size(),false);
+  dfs(res, path, 0, s, position, letters, used);
+
+  return res;
+}
+
+/********/
 

@@ -60,39 +60,56 @@ int findMaxWindow(string a, string b){
 	return -1;
 }
 
-void dfs(vector<vector<float> > &res, vector<float> &entry, float target, vector<float> coin, bool &found) {
-    if(target == 0){
-      res.push_back(entry);
-      for(int i = 0; i < res[res.size() - 1].size(); i++) cout<< res[res.size() - 1][i] << " ";
-       cout<<endl;
-      found = true;
-      return;
+void dfs(vector<string> &res, string &path, int index, const string &s, 
+                          vector<int> &position, vector<char> &letters, vector<bool> used) {
+  if (index == position.size())
+  {
+    res.push_back(path);
+    cout<<path<<endl;
+    return;
+  }
+  int lastIndex = -1;
+  for (int j = 0; j < letters.size(); ++j)
+  {
+    if(lastIndex != -1 && letters[lastIndex] == letters[j]) continue;// 同一个位置不允许相同的字母
+    if (!used[j] ) 
+    {
+      lastIndex = j;
+      used[j] = true;
+      char c = path[position[index]];
+      path[position[index]] = letters[j];
+      dfs(res, path, index + 1, s, position, letters, used);
+      path[position[index]] = c;
+      used[j] = false;
     }
-    // for(int i = 0; i < res.size(); i++) cout<< res[i] << " ";
-    //   cout<<endl;
-    for(int i = 0; i < coin.size(); i++) {
-      if(!found && coin[i] <= target) {
-        cout<<target<<endl;
-        entry.push_back(coin[i]);
-        dfs(res, entry, target - coin[i], coin, found);
-        entry.pop_back();
-      }
-      // if(found) break;
-    }
+  }
 }
-vector<float> exchangeMoney(vector<float> coin, float target) {
-    vector<vector<float> > res;
-    vector<float> entry;
-    if(coin.size() == 0 || target == 0) return entry;
-    bool found = false;
-    sort(coin.begin(), coin.end(), greater<float>());
-    dfs(res, entry, target, coin, found);
-    return res[0];
+
+vector<string> permuteLowerCase(string s){
+  vector<string> res; 
+  if (s.length() == 0) return res;
+  vector<int> position;
+  vector<char> letters;
+  string path = s;
+
+  for (int i = 0; i < s.length(); ++i)
+  {
+    if (s[i] <= 'z' && s[i] >= 'a')
+    {
+      letters.push_back(s[i]);
+      position.push_back(i);
+    }
+  }
+  sort(letters.begin(), letters.end());
+  vector<bool> used(letters.size(),false);
+  dfs(res, path, 0, s, position, letters, used);
+
+  return res;
 }
 int main ()
 {
-	float A[] = {5, 1, 0.25, 0.1, 0.05, 0.01};
-  vector<float> v(A,A+6);
-  exchangeMoney(v,9.99);
+	float A[] = {5, 2};
+  vector<int> v(A,A+2);
+  permuteLowerCase("abcCb");
 	return 0;
 }
