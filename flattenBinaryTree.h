@@ -15,3 +15,25 @@
         }
         if(root->right) flatten(root->right);
     }
+
+    //change recursive to iterative, greatly speed up the code
+    void flatten(TreeNode *root) {
+        if(root == NULL) return;
+        TreeNode *cur = root;
+        
+        while(cur) {
+            if(cur->left){
+                if(cur->right){
+                    TreeNode* tmp = cur->left;
+                    while(tmp->right){ //find the biggest in the left
+                        tmp = tmp->right;
+                    }
+                    tmp->right = cur->right;
+                }
+                cur->right = cur->left;
+                cur->left = NULL;
+                
+            }
+            cur = cur->right;
+        }
+    }
