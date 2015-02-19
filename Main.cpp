@@ -59,27 +59,40 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
-int grayCode1(char *s1, char *s2) {
-  if (strlen(s1) != strlen(s2)) return -1;
-  int count = 0;
-  for (int i = 0; i < strlen(s1); i++){
-    if(s1++ == s2++) continue;
-    else count++;
-  }
-  return count == 1 ? 1: -1;
-}
-    void grayCode(int n) {
-        vector<int> res(1<<n);
-        for(int i = 0; i < 1<<n; i++){
-            res[i] = (i >> 1) ^ i; //GrayCode(n) = B(n) XOR B(n+1). B(n)表示n的二进制，B(n+1)表示n右移一位的二进制
-            cout<<res[i]<<" ";
-          }
+
+void dfs(vector<vector<float> > &res, vector<float> &entry, float target, vector<float> coin, bool &found) {
+    if(target == 0){
+      res.push_back(entry);
+      for(int i = 0; i < res[res.size() - 1].size(); i++) cout<< res[res.size() - 1][i] << " ";
+       cout<<endl;
+      found = true;
+      return;
     }
+    // for(int i = 0; i < res.size(); i++) cout<< res[i] << " ";
+    //   cout<<endl;
+    for(int i = 0; i < coin.size(); i++) {
+      if(!found && coin[i] <= target) {
+        cout<<target<<endl;
+        entry.push_back(coin[i]);
+        dfs(res, entry, target - coin[i], coin, found);
+        entry.pop_back();
+      }
+      // if(found) break;
+    }
+}
+vector<float> exchangeMoney(vector<float> coin, float target) {
+    vector<vector<float> > res;
+    vector<float> entry;
+    if(coin.size() == 0 || target == 0) return entry;
+    bool found = false;
+    sort(coin.begin(), coin.end(), greater<float>());
+    dfs(res, entry, target, coin, found);
+    return res[0];
+}
 int main ()
 {
-	int A[] = {1,3,7,13,23};
-  int B[] = {2,7,8,33,44,55};
-  int m = 0, n = 2;
-
+	float A[] = {5, 1, 0.25, 0.1, 0.05, 0.01};
+  vector<float> v(A,A+6);
+  exchangeMoney(v,9.99);
 	return 0;
 }

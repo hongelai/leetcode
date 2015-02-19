@@ -256,4 +256,25 @@ void anagramProcedure(string a, string b){
           cout<<"4("<<x<<","<<y - i<<")"<<"("<<x-a/i<<","<<(y - i)<<")"<<"("<<x -a/i<<","<<y<<")"<<endl;
         }
     }
+}/*************************** battery target ***************************/
+int batteryCombination(vector<int> num, int target) {
+  if (num.size() == 0 || target == 0)
+  {
+    return 0;
+  }
+  vector<int> dp(target + 1);
+  dp[0] = 0;
+  for (int i = 1; i <= target; ++i)
+  {
+    dp[i] = INT_MAX;
+    for (int j = 0; j < num.size(); ++j)
+    {
+      if (num[j] <= i && dp[i - num[j]] + 1 < dp[i])
+      {
+        dp[i] = dp[i - num[j]] + 1;
+      }
+    }
+  }
+  return dp[target];
 }
+
