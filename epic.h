@@ -510,3 +510,177 @@ string seperateWord(string s) {
   }
   return s;
 }
+
+
+/*************   max label        *********************/
+
+int getRemain(int p, int digit) {
+  int res = 0;
+  int r = (digit == 9 ? 8 : 9);
+  while (p--) {
+    res = res*10 + r;
+  }
+  
+  return res;
+}
+
+int maxLabel(int n, int digit) {
+   
+   int res = 0, newdigit; 
+   while (true) {
+      string s = to_string(n);
+      int i = 0;
+      for (; i < s.length() && s[i] - '0' != digit; ++i);
+      if (i == s.length()) break;
+      i = s.length() - 1 - i; // power level, eg, 12345 -- 2
+      n = n - pow(10,i) - n%(int)pow(10,i) + getRemain(i, digit); 
+   } 
+   return n;
+}
+
+/*************** additive number *****************/
+bool isAdditiveSequence(string num) {
+
+  for (int i = 1; i < num.length(); i++) //end index of part one
+    for (int j = i + 1; j < num.length(); j++) { //end index of part two
+      int first = stoi(num.substr(0, i)); // 0 -- i-1
+      int second = stoi(num.substr(i, j - i)); // i -- j-1
+      int rest = stoi(num.substr(j, num.length() - j)); //j -- len
+      int index = j;
+      
+      while (first + second <= rest)
+      {
+        int third = first + second;
+        string str = to_string(third);
+        int len = str.length();
+        // cout<<first<<" "<<second<<" "<<third<<endl;
+        
+        if (str == num.substr(index,len))
+        {
+          index = index + len;
+          if(index == num.length()) return true;
+          first = second; second = third;
+          rest = stoi(num.substr(index, num.length() - index));
+        } else {
+          break;
+        }
+      }
+    }
+    return false;
+}
+
+/*************** colorful number**********/
+bool colorfulNumber(int n) {
+  std::vector<int> v;
+  unordered_map<int , bool> map;
+  while(n) {
+    v.insert(v.begin(), n%10);
+    n /= 10;
+  }
+  for (int i = 0; i < v.size(); ++i) // 1 , 12, 123, 2, 23, 234,
+  {
+      int res = 1;
+      for (int j = i; j < v.size(); j++)
+      {
+          res *= v[j];
+          if (map.find(res) != map.end())
+          {
+            cout<<res<<endl;
+            return false;
+          } else {
+            map[res] = true;
+          }
+      }
+  }
+
+  return true;
+}
+
+
+/********************** jumper game ***********/
+int longestPath(vector<vector<int> > m, int i, int j) {
+
+}
+void jumpHelper(vector<vector<int> > &m, int i, int j, vector<vector<int> > &visited, int player) {
+  int up = 0, down = 0, left = 0, right = 0;
+  //up
+  if (i - 2 >=0)
+  {
+    if (!visited[i-1][j] && m[i-1][j] != 0 && m[i-1][j] != player && m[i-2][j] == 0 ) // 只能通过对手的棋子跳跃，落地为空，每次隔着对手棋子跳一格
+    {
+      visited[i-1][j] = 1；
+      left = 1 + jumpHelper(m, i-2, j, visited);
+    }
+  }
+  //down
+
+  //left
+
+  //right
+
+  return max(max(up, down), max(left, right));
+
+}
+
+//the steping number
+
+void dfs(long long s, long long e, int len, int num) {
+  if (len-1 == 0)
+  {
+    if (num >= s && num <= e)
+    {
+      cout<<num<<endl;
+    }
+  }
+  int lastDigit = num%10;
+  if (lastDigit == 0)
+  {
+    dfs(s, e, i-1, num*10 + 1);
+  }
+  else if (lastDigit == 9)
+  {
+    dfs(s, e, i-1, num*10 + 8);
+  } else {
+    dfs(s, e, i-1, num*10 + lastDigit - 1);
+    dfs(s, e, i-1, num*10 + lastDigit + 1);
+  }
+
+}
+
+void theStepingNumber(int s, int e) {
+  int sLen = to_string(s).length();
+  int eLen = to_string(e).length();
+
+  for (int i = sLen; i <= eLen; ++i)
+  {
+    for (int j = 1; j <= 9; ++j)
+    {
+      dfs(s, e, i, j);
+    }
+  }
+}
+
+//greatest Common divisor && convert to octal
+int greatestCommonDivisor(int a, int b){
+    if (a==0) return b;
+    while(a!=b){
+      if(a>b){
+        a=a-b;
+      }else {
+        b=b-a;
+      }
+    }
+    return a;
+  }
+
+string getOctal(int n) {
+  string res = "";
+  while(n){
+    res += n%8 + '0';
+    n /= 8;
+  }
+  return res;
+}
+////
+
+

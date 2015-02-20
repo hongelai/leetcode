@@ -59,10 +59,30 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
+int greatestCommonDivisor(int a, int b){
+    if (a==0) return b;
+    while(a!=b){
+      if(a>b){
+        a=a-b;
+      }else {
+        b=b-a;
+      }
+    }
+    return a;
+  }
 
+string getOctal(int n) {
+  string res = "";
+  while(n){
+    res += n%8 + '0';
+    n /= 8;
+  }
+  return res;
+}
 
 int main ()
 {
-  seperateWord("i loafss tha/d   .mmmt kk");
+  int a = 1119200319;
+  cout<<getOctal(100)<<endl;
 	return 0;
 }
