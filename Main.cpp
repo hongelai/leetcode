@@ -59,30 +59,35 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
-int greatestCommonDivisor(int a, int b){
-    if (a==0) return b;
-    while(a!=b){
-      if(a>b){
-        a=a-b;
-      }else {
-        b=b-a;
-      }
+int quickSolve(vector<int> prices) {
+        int len = prices.size(), profit = 0;
+        for (int i = 1; i < len; i++)
+            // as long as there is a price gap, we gain a profit.
+            if (prices[i] > prices[i - 1]) profit += prices[i] - prices[i - 1];
+        return profit;
     }
-    return a;
-  }
+void maxProfit(int k, vector<int> prices) {
+        int len = prices.size();
+//        if (k > len / 2) cout<< quickSolve(prices);
 
-string getOctal(int n) {
-  string res = "";
-  while(n){
-    res += n%8 + '0';
-    n /= 8;
-  }
-  return res;
-}
+        vector<vector<int> > t(k+1, vector<int>(len));
+        for (int i = 1; i <= k; i++) {
+            int tmpMax = t[i - 1][0] - prices[0];
+            for (int j = 1; j < len; j++) {
+                t[i][j] = max(t[i][j - 1], prices[j] + tmpMax);
+                cout<<t[i][j]<<":"<<tmpMax<<"  ";
+                tmpMax =  max(tmpMax, t[i - 1][j - 1] - prices[j]);
+                
+            }
+            cout<<endl;
+        }
+        cout<< t[k][len - 1]<<endl;
+    }
 
 int main ()
 {
-  int a = 1119200319;
-  cout<<getOctal(100)<<endl;
+  int a[] = {2,6,3,5,4,18,1,14,3,55};
+  vector<int> v(a,a+10);
+  maxProfit(3,v);
 	return 0;
 }
