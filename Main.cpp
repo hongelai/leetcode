@@ -59,30 +59,37 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
-int greatestCommonDivisor(int a, int b){
-    if (a==0) return b;
-    while(a!=b){
-      if(a>b){
-        a=a-b;
-      }else {
-        b=b-a;
-      }
+int maxProfit(int k, vector<int> &prices) {
+        int size = (int)prices.size();
+        if (k==0||size<2) {
+            return 0;
+        }
+        if (k>size/2) {
+            int sum = 0;
+            for(int i = 1;i < size;i++){
+                if(prices[i] > prices[i-1]){
+                    sum += prices[i] - prices[i-1];
+                }
+            }
+            return sum;
+        }
+        vector<int> buy(k,INT_MIN);
+        vector<int> sell(k,0);
+        for (int i=0; i<size; i++) {
+            for (int j=k-1; j>=0; j--) {
+                sell[j]=max(sell[j],buy[j]+prices[i]);
+                buy[j]=max(buy[j],(j>0?sell[j-1]:0)-prices[i]);
+                cout<<sell[j]<<":"<<buy[j]<<" ";
+            }
+            cout<<endl;
+        }
+        return sell[k-1];
     }
-    return a;
-  }
-
-string getOctal(int n) {
-  string res = "";
-  while(n){
-    res += n%8 + '0';
-    n /= 8;
-  }
-  return res;
-}
 
 int main ()
 {
-  int a = 1119200319;
-  cout<<getOctal(100)<<endl;
+  int a[] = {2,6,5,1,10,9,12,16,13,20,11,33};
+  vector<int> v(a,a+12);
+  maxProfit(3,v);
 	return 0;
 }
