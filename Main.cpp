@@ -59,37 +59,32 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
-int maxProfit(int k, vector<int> &prices) {
-        int size = (int)prices.size();
-        if (k==0||size<2) {
-            return 0;
-        }
-        if (k>size/2) {
-            int sum = 0;
-            for(int i = 1;i < size;i++){
-                if(prices[i] > prices[i-1]){
-                    sum += prices[i] - prices[i-1];
-                }
-            }
-            return sum;
-        }
-        vector<int> buy(k,INT_MIN);
-        vector<int> sell(k,0);
-        for (int i=0; i<size; i++) {
-            for (int j=k-1; j>=0; j--) {
-                sell[j]=max(sell[j],buy[j]+prices[i]);
-                buy[j]=max(buy[j],(j>0?sell[j-1]:0)-prices[i]);
-                cout<<sell[j]<<":"<<buy[j]<<" ";
+
+
+void maxProfit(int k, vector<int> prices) {
+        int len = prices.size();
+//        if (k > len / 2) cout<< quickSolve(prices);
+
+        vector<vector<int> > t(k+1, vector<int>(len));
+        for (int i = 1; i <= k; i++) {
+            int tmpMax = t[i - 1][0] - prices[0];
+            cout<<tmpMax<<"  ";
+            for (int j = 1; j < len; j++) {
+                t[i][j] = max(t[i][j - 1], prices[j] + tmpMax);
+                
+                tmpMax =  max(tmpMax, t[i - 1][j - 1] - prices[j]);
+                
             }
             cout<<endl;
         }
-        return sell[k-1];
+        cout<< t[k][len - 1]<<endl;
     }
 
 int main ()
 {
-  int a[] = {2,6,5,1,10,9,12,16,13,20,11,33};
-  vector<int> v(a,a+12);
+  int a[] = {2,6,3,5,4,18,1,14,3,55};
+  vector<int> v(a,a+10);
+
   maxProfit(3,v);
 	return 0;
 }
