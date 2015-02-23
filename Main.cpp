@@ -18,21 +18,6 @@
 
 using namespace std;
 
-void findFirstUnique(vector<int> &v){
-
-	unordered_map<int,int> map;
-	for(int i = 0; i < v.size(); i++){
-		if(map.find(v[i]) == map.end()){
-			// um.insert(make_pair(a,1)); // cannot use insert again(duplicate), because !um[v[i]] will innitialize it as 0.
-			map[v[i]] = 1;
-		}
-		else map[v[i]]++;
-	}
-	for(auto it = v.begin();it != v.end(); it++) 
-		if(map[*it] == 1) cout<<*it<<" ";
-
-}
-
 bool isAnagram(string a, string b){
 	int count[256] = {0};
   for (int i = 0; i < a.length(); ++i) count[a[i]]++;
@@ -60,31 +45,10 @@ int findMaxWindow(string a, string b){
 	return -1;
 }
 
-
-void maxProfit(int k, vector<int> prices) {
-        int len = prices.size();
-//        if (k > len / 2) cout<< quickSolve(prices);
-
-        vector<vector<int> > t(k+1, vector<int>(len));
-        for (int i = 1; i <= k; i++) {
-            int tmpMax = t[i - 1][0] - prices[0];
-            cout<<tmpMax<<"  ";
-            for (int j = 1; j < len; j++) {
-                t[i][j] = max(t[i][j - 1], prices[j] + tmpMax);
-                
-                tmpMax =  max(tmpMax, t[i - 1][j - 1] - prices[j]);
-                
-            }
-            cout<<endl;
-        }
-        cout<< t[k][len - 1]<<endl;
-    }
-
 int main ()
 {
-  int a[] = {2,6,3,5,4,18,1,14,3,55};
-  vector<int> v(a,a+10);
+  int a[] = {1,4,5,7,10,12,33,35};
 
-  maxProfit(3,v);
+  findMissingRanges(a, 8, 2, 38);
 	return 0;
 }
