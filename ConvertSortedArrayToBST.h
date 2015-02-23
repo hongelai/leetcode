@@ -1,3 +1,4 @@
+   //solution 1: bottom up
     TreeNode *sortedArrayToBST(vector<int> &num) {
         int index = 0;
         return inOrderRecover(num,index,num.size());
@@ -13,5 +14,22 @@
         root->left = left;
         root->right = right;
         
+        return root;
+    }
+
+    //solution 2 ： root->leaf
+    TreeNode *sortedArrayToBST(vector<int> &num) {
+        return buildBST(num, 0, num.size() - 1);
+    }
+    
+    TreeNode *buildBST(vector<int> &num, int start, int end)
+    {
+        if (start > end) return NULL;
+
+        int mid = (start + end) / 2;
+        TreeNode *root = new TreeNode(num[mid]);
+        root->left = buildBST(num, start, mid - 1);
+        root->right = buildBST(num, mid + 1, end);
+
         return root;
     }
