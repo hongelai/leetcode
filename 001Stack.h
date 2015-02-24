@@ -1,10 +1,12 @@
 #define Type int
+
 struct Node
 {
   Type val;
   Node *next;
   Node(Type v):val(v), next(NULL){}
 };
+
 class Stack
 {
 private:
