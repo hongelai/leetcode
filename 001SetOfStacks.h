@@ -57,6 +57,7 @@ class SetStack
             return false;
           }
         }
+        
         void popAt(int idx) {
           while (sk[idx].empty() && index > 0)
           {
@@ -64,14 +65,5 @@ class SetStack
             index--;
           }
           sk[idx].pop();
-        }
-        stack<int> getStack(int idx) {
-          return sk[idx];
-        }
-        int getStackSize(int idx) {
-          return sk[idx].size();
-        }
-        int getSize() {
-          return sk.size();
         }
 };
