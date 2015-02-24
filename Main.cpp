@@ -45,10 +45,77 @@ int findMaxWindow(string a, string b){
 	return -1;
 }
 
+#define SIZE 7
+class SetStack
+{
+    private:
+        int capacity;
+        int index;
+        vector<stack<int> > sk;
+    public:
+        SetStack(int capa = SIZE){
+            capacity = capa;
+            index = 0;
+            sk.push_back(stack<int>());
+        }
+        
+        ~SetStack(){
+          sk.clear();
+        }
+
+        void push(int d) {
+          stack<int> tmp = sk[index];
+          if (tmp.size() == capacity)
+          {
+
+            sk.push_back(stack<int>());
+            index++;
+          }
+
+          sk[index].push(d);
+        }
+
+        void pop(){
+          stack<int> tmp = sk[index];
+          if(tmp.size() == 0 && index > 0){
+            sk.erase(sk.begin() + index);
+            index--;
+          }
+          
+          sk[index].pop();
+          
+        }
+
+        int top(){
+          if (sk[index].size() == 0 && index > 0)
+          {
+            sk.erase(sk.begin() + index);
+            index--;
+          }
+          return sk[index].top();
+        }
+        
+        bool empty() {
+          if (index == 0 && sk[index].size() == 0)
+          {
+            return true;
+          } else {
+            return false;
+          }
+        }
+};
 int main ()
 {
   int a[] = {1,4,5,7,10,12,33,35};
 
-  findMissingRanges(a, 8, 2, 38);
+   SetStack ss;
+    for(int i=0; i<27; ++i){
+        ss.push(i);
+    }
+    cout<<ss.getSize()<<endl;
+    while(!ss.empty()){
+        cout<<ss.top()<<endl;
+        ss.pop();
+    }
 	return 0;
 }
