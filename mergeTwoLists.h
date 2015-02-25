@@ -1,19 +1,16 @@
     ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
-
-        ListNode* newlist;
-        ListNode head{-1};
-        newlist = &head;
-        while(l1!=NULL && l2!=NULL){
-            if(l1->val > l2->val){
-                newlist->next = l2;
-                l2 = l2->next;
-            }else{
-                newlist->next = l1;
+        ListNode *dummy = new ListNode(-1);
+        ListNode *cur = dummy;
+        while(l1 && l2) {
+            if (l1->val < l2->val) {
+                cur->next = l1;
                 l1 = l1->next;
+            } else {
+                cur->next = l2;
+                l2 = l2->next;
             }
-            newlist = newlist->next;
+            cur = cur->next;
         }
-        if(l1) newlist->next = l1;
-        if(l2) newlist->next = l2;
-        return head.next;
+        cur->next = l1 == NULL ? l2:l1;
+        return dummy->next;
     }
