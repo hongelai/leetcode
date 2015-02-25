@@ -43,8 +43,8 @@ public:
             while (table[hash] != NULL && table[hash]->getKey() != key) //key 已被占用
                   hash = (hash + 1) % TABLE_SIZE;
             if (table[hash] != NULL) //找到了key,而且里面存有东西
-                  delete table[hash];
-            table[hash] = new HashEntry(key, value);
+                  delete table[hash]; //删去指针
+            table[hash] = new HashEntry(key, value); //重新指向
       }     
  
       ~HashMap() {

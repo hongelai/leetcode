@@ -1,3 +1,4 @@
+    int divide(int dividend, int divisor) {
         //bottom up, subtract divisor. if still available =, double divisor and subtract
         bool negative = (dividend > 0) ^ (divisor > 0);
         long long a = abs((long long)dividend), b = abs((long long)divisor);

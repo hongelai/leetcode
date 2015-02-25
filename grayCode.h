@@ -8,23 +8,24 @@
 
         return res;
     }
+    
     //solution2 : n= 2 00 01 11 10
     //n = 3  000 001 011 010 110 111 101 100
     //前面4个只是在n = 2 的基础上加前面0 对结果没影响 后四个是逆序后前面加1
     vector<int> grayCode(int n) {
         vector<int> result;      
-        result.push_back(0);  
-        for(int i=0; i< n; i++)  
-        {  
-            int highestBit = 1<<i;  
-            int len = result.size();  
-            for(int i = len-1; i>=0; i--)  
-            {  
-                result.push_back(highestBit + result[i]);  
-            }  
-        }  
+        result.push_back(0);
+        
+        for (int i = 0; i < n; i++) {
+            int sz = result.size();
+            for (int j = sz - 1; j >= 0; j--){
+                int tmp = result[j] + (1<<i);
+                result.push_back(tmp);
+            }
+        }
         return result;
     }
+
 //recursive method
         vector<int> grayCode(int n) {
         vector<int> res;
