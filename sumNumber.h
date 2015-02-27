@@ -20,7 +20,7 @@
             TreeNode* node = q.front().first;
             int sum = q.front().second * 10 + node->val;
             q.pop();
-            if(node->left == nullptr && node->right == nullptr){
+            if(node->left == nullptr && node->right == nullptr){//leaf node, add sum to final result
                 res += sum;
                 continue;
             }
