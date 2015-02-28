@@ -45,14 +45,18 @@ int findMaxWindow(string a, string b){
 	return -1;
 }
 
+void grayCheck(byte x) {
 
+  int total = 0;
+  while(x != 0){
+    x = (byte) (x & (x - 1));
+    total++;
+  }
+  cout<<total<<endl;
+}
 int main ()
 {
   int a[] = {1,4,5,7,10,12,33,35};
-  HashMap map;
-  map.put(12,22);
-  cout<<map.get(12)<<endl;
-  map.put(12,24);
-  cout<<map.get(12)<<endl;
+  grayCheck(10);
 	return 0;
 }
