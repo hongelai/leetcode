@@ -18,3 +18,14 @@
         }
         return index;
     }
+
+    int removeElement(int A[], int n, int elem) {
+        if (n == 0) return 0;
+        int start = 0, end = n-1;
+        while (start <= end) {
+           if (A[start] == elem) {
+               swap(A[start], A[end--]);
+           } else start++;
+        }
+        return end + 1;
+    }

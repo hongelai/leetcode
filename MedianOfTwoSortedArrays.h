@@ -14,9 +14,10 @@
         else return findKthNumber(A+asub, m-asub, B, n, k-asub); // cut off A 0-asub
     }
     //another find kth ,more unstandable
-      double findKthSortedArrays(int A[], int m, int B[], int n, int k) {
+    //another find kth ,more unstandable
+      int findKthNumber(int A[], int m, int B[], int n, int k) {
         if (m > n)
-            return findKthSortedArrays(B, n, A, m, k);
+            return findKthNumber(B, n, A, m, k);
         if (m == 0) return B[k-1];
         if (k == 1) return min(A[0], B[0]);
 
@@ -25,7 +26,7 @@
         int a = A[i-1];
         int b = B[j-1];
 
-        if (a < b) return findKthSortedArrays(A + i, m - i, B, n, k - i);
-        else if (a > b) return findKthSortedArrays(A, m, B + j, n - j, k - j);
+        if (a < b) return findKthNumber(A + i, m - i, B, j, k - i);
+        else if (a > b) return findKthNumber(A, i, B + j, n - j, k - j);
         else return a;
     }

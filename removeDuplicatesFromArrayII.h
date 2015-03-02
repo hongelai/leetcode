@@ -16,6 +16,22 @@
         }
         return start;
     }
+    
+    int removeDuplicates(int A[], int n) {
+        if (n < 2) return n;
+        int start = 0, end = 1, count = 1;
+        while(end < n) {
+            if (A[end] == A[start]) {
+                if (count < 2) A[++start] = A[end];
+                count++;
+            } else {
+                A[++start] = A[end];
+                count = 1;
+            }
+            end++;
+        }
+        return start + 1;
+    }
 
     int removeDuplicates(int A[], int n) {
         if (n <= 2) return n;
