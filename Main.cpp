@@ -45,43 +45,37 @@ int findMaxWindow(string a, string b){
 	return -1;
 }
 
-    string minWindow(string S, string T) {
-        int sLen = S.length(), tLen = T.length();
-        int start = 0, end = 0, count = 0, minLen = INT_MAX;
-        string ret = "";
-        unordered_map<char, int> need, find;
+    int threeSumClosest(vector<int> &num, int target) {
+        int size = num.size();
+        int minGap = INT_MAX, ret;
         
-        if (sLen < tLen) return ret;
-        for(int i = 0; i < tLen; i++) need[T[i]]++;
-        
-        while (end < sLen) {
-            if (need.count(S[end]) == 0){
-                end++;
-                continue;
-            } 
-            find[S[end]]++;
-            if (find[S[end]] <= need[S[end]]) count++;
-            cout<<find[S[end]]<<" "<<count<<endl;
-            if (count == tLen) {
-                while (need.count(S[start]) == 0 || need[S[start]] < find[S[start]]) {
-                    find[S[start]]--;
-                    start++;
-                }
-                cout<<"in"<<endl;
-                int len = end - start + 1;
-                if (minLen > len) {
-                    minLen = len;
-                    ret = S.substr(start, len);
+        sort(num.begin(), num.end());
+        for (int i = 0; i < size-2; i++) {
+            int start = i + 1, end = size-1;
+            //0 1 1 1 -100
+            while (start < end) {
+                int sum = num[i] + num[start] + num[end];
+                int gap = abs(sum - target);
+                if (gap < minGap) {
+                    ret = num[i] + num[start] + num[end];
                     cout<<ret<<endl;
                 }
+                if (sum > target) end--;
+                else if (sum < target) start++;
+                else return ret;
+                
+                // while (start < end && num[start-1] == num[start]) start++;
+                // while (start <end && num[end+1] == num[end]) end--;
             }
-            end++;
         }
+
         return ret;
     }
 int main ()
 {
-  int a[] = {1,4,5,7,10,12,33,35};
-  minWindow("bba", "ab");
+  int a[] = {1,1,1,0};
+  std::vector<int> v(a, a+4);
+
+  threeSumClosest(v, -100);
 	return 0;
 }

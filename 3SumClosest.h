@@ -22,3 +22,26 @@
         }
         return res;
     }
+
+    int threeSumClosest(vector<int> &num, int target) {
+        int size = num.size();
+        int minGap = INT_MAX, ret;
+        
+        sort(num.begin(), num.end());
+        for (int i = 0; i < size-2; i++) {
+            int start = i + 1, end = size-1; 
+            
+            while (start < end) {
+                int sum = num[i] + num[start] + num[end];
+                int gap = abs(sum - target);
+                if (gap < minGap) {
+                    minGap = gap;
+                    ret = num[i] + num[start] + num[end];
+                }
+                if (sum > target) end--;
+                else if (sum < target) start++;
+                else return ret;
+            }
+        }
+        return ret;
+    }
