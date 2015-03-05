@@ -36,3 +36,33 @@ String delelteVowels(String string) {
 	}
 	return sb.toString();
 } 
+
+    void getNext(char * T, int next[], int n){
+        int i=0, j=-1;
+        next[0]=-1;
+        while(i<n){
+            while(j>-1&&T[j]!=T[i]) j = next[j];
+            i++,j++;
+            if(T[j]==T[i]) next[i]=next[j];
+            else next[i]=j;
+        }
+    }
+    int strStr_2(char *haystack, char *needle) {
+        int sLen = strlen(haystack);
+        const int tLen = strlen(needle);
+        if (tLen == 0) return 0;
+        if(haystack==NULL || needle==NULL || sLen==0) return -1;
+        
+        int next[tLen+1];
+        getNext(needle,next,tLen);
+        
+        int i=0, j=0;
+        while(i<sLen){
+            while(j>-1&&needle[j]!=haystack[i]) j = next[j];
+            i++,j++;
+            if(j==tLen){
+                return i - j;
+            }
+        }
+        return -1;
+    }
