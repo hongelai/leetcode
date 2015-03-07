@@ -1,13 +1,8 @@
-    int climbStairs(int n) {
-        vector<int> result(n+1);
-        if(n == 0) return 1;
-        if(n == 1) return 1;
-        result[0] = 1;
-        result[1] = 1;
+int climbStairs(int n) {
+        vector<int> dp(n+1);
+        dp[0] = 0, dp[1] = 1, dp[2] = 2;
+        for (int i  = 3; i <= n; i++)
+            dp[i] = dp[i-1] + dp[i-2];//最后一下可能走一步或者两步
         
-        for(int i = 2; i <= n; i++){
-            result[i] = result[i-1]+result[i-2];
-        }
-        
-        return result[n];
+        return dp[n];
     }

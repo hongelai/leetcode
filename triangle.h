@@ -30,16 +30,12 @@
             res[i] = triangle[row-1][i] + small;
         }
     }
-
-    //second method, accepted 52ms
+    
+    //bottom up
     int minimumTotal(vector<vector<int> > &triangle) {
-        int row = triangle.size();
-        int col = row;
-        
-        for(int i = row-1 ; i > 0 ; i--)
-            for(int j = 0; j < i; j++){
-                if(j+1 <= i)
-                    triangle[i-1][j] += min(triangle[i][j],triangle[i][j+1]);
-            }
-            return triangle[0][0];
+        int row = triangle.size(), col = triangle[0].size();
+        for (int i = row - 1; i >0; i--)
+            for (int j = 0; j < triangle[i].size() - 1; j++)
+                triangle[i-1][j] += min(triangle[i][j], triangle[i][j+1]);
+        return triangle[0][0];
     }

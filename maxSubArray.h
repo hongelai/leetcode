@@ -10,3 +10,12 @@
         }
         return res;
     }
+
+    int maxSubArray(int A[], int n) {
+        int sum = A[0], res = A[0];
+        for (int i = 1; i < n; i++) {
+            sum = max(sum+A[i], A[i]);
+            res = max(res, sum);
+        }
+        return res;
+    }

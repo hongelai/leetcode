@@ -12,3 +12,14 @@
             }
         return dp[m-1][n-1];
     }
+
+    int uniquePaths(int m, int n) {
+        int dp[n];
+        fill_n(dp, n, 1);
+        for (int i = 1; i < m; i++)
+            for (int j = 1; j < n; j++) {
+                dp[j] = dp[j-1] + dp[j];
+            }
+        return dp[n-1];
+        
+    }

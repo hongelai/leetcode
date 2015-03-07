@@ -50,8 +50,9 @@ int main ()
 {
   int a[] = {1,1,1,0,2,4,2,5,6,7,2,2,3,3,2,1,2};
   std::vector<int> v(a, a+17);
-  int low = 0, high = 2;
-  low = 1, high = high - 1;
+  unordered_set<string> set;
+  set[0] = "hello";
+  cout<<set[0]<<endl;
 
 	return 0;
 }
