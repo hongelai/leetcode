@@ -6,7 +6,7 @@
         vector<vector<int> > dp(row+1, vector<int>(col+1,0)); //store 0s count
         for (int i = 1; i <= row; i++)
             for(int j = 1; j <= col; j++) {
-                dp[i][j] = dp[i-1][j] + dp[i][j-1] + (matrix[i-1][j-1] - '0' ? 0 : 1);
+                dp[i][j] = dp[i-1][j] + dp[i][j-1] - dp[i-1][j-1] + (matrix[i-1][j-1] - '0' ? 0 : 1);
             }
         for (int i = 0; i < row; i++)
             for (int j = 0; j < col; j++) {
@@ -58,10 +58,10 @@
                 else height[j]=0;
             }
             for(int j=0; j<n; j++) { // left[i] 表示在给定height[i]的情况下，可以向左extend到col left[i]
-                if(matrix[i][j]== 1) left[j]=max(left[j],cur_left);
+                if(matrix[i][j]== 1) left[j]=max(left[j],cur_left); //如果上一层matirx是0，则left[i] ==0，所以不会有影响
                 else {left[j]=0; cur_left=j+1;}
             } 
-            for(int j=n-1; j>=0; j--) { // right[i] 表示在给定height[i]的情况下，可以向右extend到col right[i], 当right[i] == n, 意味着为空
+            for(int j=n-1; j>=0; j--) { // right[i] 表示在给定height[i]的情况下，可以向右extend到col right[i], 当right[i] == n, 意味着为空, height == 0
                 if(matrix[i][j]==1) right[j]=min(right[j],cur_right);
                 else {right[j]=n; cur_right=j;}  
                  

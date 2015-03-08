@@ -44,15 +44,21 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
-
+bool hasSame(string::iterator f1, string::iterator e1, string::iterator f2, string::iterator e2){
+        int chars[256] = {0};
+        for (;f1 != e1;) chars[*f1++]++;
+        for (;f2 != e2;) chars[*f2++]--;
+        for (int i = 0; i < 256; i++) if(chars[i] != 0) return false;
+        return true;
+    }
 
 int main ()
 {
   int a[] = {1,1,1,0,2,4,2,5,6,7,2,2,3,3,2,1,2};
   std::vector<int> v(a, a+17);
-  unordered_set<string> set;
-  set[0] = "hello";
-  cout<<set[0]<<endl;
+  string s1= "hello", s2 = "heo0l";
+  cout<<"coming"<<endl;
+  cout<<hasSame(s1.begin(), s1.end(),s2.begin(),s2.end())<<endl;
 
 	return 0;
 }
