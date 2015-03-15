@@ -25,3 +25,5 @@
             return true;
         }
     }
+
+    //和regular expression match 的区别， 在RRM里面 * 是在前一个char基础上匹配任意个 char，而不是可以代表任意char
