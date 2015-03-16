@@ -45,39 +45,26 @@ int findMaxWindow(string a, string b){
 	return -1;
 }
 
-    bool isMatch(const char *s, const char *p) {
-        const char* sBackup = NULL, *pBackup = NULL;
-        cout<<s<<" "<<p<<endl;
-        while(*s != '\0'){
-            if(*p == '?' || *s == *p){
-                s++;
-                p++;
-            }else if(*p == '*'){
-                pBackup = p++;
-                if(*p == '\0') return true;  //相当与匹配全部
-                sBackup = s; //相当于先匹配 0个，之后可能会逐渐加
-                
-            }else{
-                if(!pBackup) return false;
-                p = pBackup;
-                s = sBackup;
-                s++;
-            }
+bool isPossible(string s, unordered_set<string> &dict) { 
+        int len = s.length();
+        vector<bool> dp(len+1,false);
+        dp[0] = true;
+        
+        for (int i = 0; i < len; i++) {
+            if (dp[i]) {
+                for (int j = i; j < len; j++){
+                    if (dict.count(s.substr(i,j-i+1)) != 0){
+                        dp[j+1] = true;
+                    }
+                }
+            }    
         }
-        if(*p == '\0') return true;
-        else{
-            while(*p != '\0')
-                if(*p++ != '*')
-                    return false;
-            return true;
-        }
+        return dp[len];
     }
+ 
 int main ()
 {
   int a[] = {1,1,1,0,2,4,2,5,6,7,2,2,3,3,2,1,2};
   std::vector<int> v(a, a+17);
-  char aa[] = "aaaab", b[] = "a*";
-  cout<<isMatch(aa,b)<<endl;
-
 	return 0;
 }
