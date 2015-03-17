@@ -12,3 +12,20 @@
                 swap(matrix[i][j],matrix[row -i-1][j]);
             }
     }
+
+    void rotate(vector<vector<int> > &matrix) {
+        int n = matrix.size();
+        
+        for(int i = 0; i < n/2; i++) { //layer
+            int first = i;
+            int last = n - 1 - i;
+            for(int j = first; j < last; j++){
+                int off = j - first;
+                int tmp = matrix[first][j];
+                matrix[first][j] = matrix[last-off][first];
+                matrix[last-off][first] = matrix[last][last-off];
+                matrix[last][last-off] = matrix[first+off][last];
+                matrix[first+off][last] = tmp;
+            }
+        }
+    }

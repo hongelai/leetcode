@@ -1,5 +1,5 @@
 public TreeNode UpsideDownBinaryTree(TreeNode root) {
-   TreeNode p = root, parent = null, parentRight = null;0 d  ^4 s  P3 O1 J3 {
+   TreeNode p = root, parent = null, parentRight = null;
    while (p != null) {
       TreeNode left = p.left;//把当前节点的左节点作为下个节点保存下来作为next指针，接下来把p和p.right单独提取出来赋值构建树
       p.left = parentRight;   //把原始的树中p的父节点的右节点作为p的新左节点

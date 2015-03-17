@@ -17,3 +17,28 @@
         slow->next = NULL;
         return head;
     }
+    
+    ListNode *rotateRight(ListNode *head, int k) {
+        if(head == NULL || k == 0) return head;
+        ListNode *p = head, *fast, *slow;
+        int len = 1;
+        while(p->next){
+            len++;
+            p = p->next;
+        }
+        k %= len;
+        fast = slow = head;
+        while(k){
+            fast = fast->next;
+            k--;
+        }
+        while(fast && fast->next){
+            fast = fast->next;
+            slow = slow->next;
+        } 
+        fast->next = head;
+        head = slow->next;
+        slow->next = NULL;
+        
+        return head;
+    }

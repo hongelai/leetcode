@@ -8,3 +8,12 @@
         }
         return sIdx;
     }
+    int removeDuplicates(int A[], int n) {
+        if(n == 0) return 0;
+        int start = 0, end = 0;
+        while(end < n) {
+            if (A[start] != A[end]) A[++start] = A[end];
+            end++;
+        }
+        return start + 1;
+    }

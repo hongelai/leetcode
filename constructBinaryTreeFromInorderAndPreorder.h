@@ -5,7 +5,7 @@
     TreeNode *buildTreeRe(vector<int> &preorder, vector<int> &inorder, int start, int end, int preIndex){
         if(start > end) return NULL;
         
-        int index = 0;
+        int index = start;
         while(preorder[preIndex] != inorder[index]) index++;
         int leftNum = index-start;
         TreeNode* root = new TreeNode(preorder[preIndex]);

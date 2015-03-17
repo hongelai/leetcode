@@ -1,4 +1,3 @@
-    //backtracking : time out
     bool isScramble(string s1, string s2) {
         int len = s1.length();
         return dfs(s1.begin(), s1.end(), s2.begin(), s2.end());
@@ -35,8 +34,8 @@
                 dp[1][i][j] = s1[i] == s2[j] ? true : false;
         
         for (int k = 2; k <= len; k++) {
-            for (int i = 0; i < len; i++) {
-                for (int j = 0; j < len; j++) {
+            for (int i = 0; i + k <= len; i++) {
+                for (int j = 0; j + k <= len; j++) {
                     for (int r = 1; r < k; r++) {
                         if ((dp[r][i][j] && dp[k-r][i+r][j+r]) || (dp[r][i][j+k-r] && dp[k-r][i+r][j]))
                         {

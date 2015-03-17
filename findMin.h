@@ -8,3 +8,13 @@
         }
         return num[start];
     }
+
+    int findMin(vector<int> &num) {
+        int start  = 0, end = num.size()-1;
+        while(start <= end){
+            if(num[start] <= num[end]) return num[start];
+            int mid = (start+end)/2;
+            if(num[start] <= num[mid]) start = mid +1;
+            else end = mid;
+        }
+    }

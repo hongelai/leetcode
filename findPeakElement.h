@@ -7,8 +7,8 @@
         while(low < high){
             int mid = (low + high) / 2;
             if(num[mid] > num[mid-1] && num[mid] > num[mid+1]) return mid;
-            else if(num[mid] > num[mid+1]) high = mid-1;
+            else if(num[mid] > num[mid+1]) high = mid-1; // there must be a peak between 0 mid-1
             else low = mid+1;
         }
-        return low;
+        return low;//can be delete
     }
