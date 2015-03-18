@@ -1,3 +1,4 @@
+//refer to 001longestSubstringWithKCharacter.h
 string longestSubstringWithTwoCharacter(string s){
 	int set[256]; // store the last occur index of charactor i
 	int len = s.length();

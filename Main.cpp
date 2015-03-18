@@ -18,21 +18,6 @@
 #include <utility> 
 using namespace std;
 
-void findFirstUnique(vector<int> &v){
-
-	unordered_map<int,int> map;
-	for(int i = 0; i < v.size(); i++){
-		if(map.find(v[i]) == map.end()){
-			// um.insert(make_pair(a,1)); // cannot use insert again(duplicate), because !um[v[i]] will innitialize it as 0.
-			map[v[i]] = 1;
-		}
-		else map[v[i]]++;
-	}
-	for(auto it = v.begin();it != v.end(); it++) 
-		if(map[*it] == 1) cout<<*it<<" ";
-
-}
-
 bool isAnagram(string a, string b){
 	int count[256] = {0};
   for (int i = 0; i < a.length(); ++i) count[a[i]]++;
@@ -59,11 +44,33 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
-
-
+void letterCombinations(string digits) {
+        int size = digits.length();
+        string a[] = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        vector<string> dict(a,a+10);
+        vector<string> res;
+        
+        if (size == 0) cout<<"emdp"<<endl;
+        res.push_back("");
+        for (int i = 0; i < size; i++) {
+            vector<string> temp;
+            cout<<dict[i].length()<<endl;
+            for (int j = 0; j < dict[i].length(); j++){
+                for (int k = 0; k < res.size(); k++) {
+                  cout<<"fff"<<endl;
+                    temp.push_back(res[k]+dict[i][j]);
+                }
+              }
+            res = temp;
+        }
+        cout<<res.size();
+        // return res;
+    }
 int main ()
 {
   int a[] = {1,1,1,0,2,4,2,5,6,7,2,2,3,3,2,1,2};
   std::vector<int> v(a, a+17);
+  // vector<string> dict = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+  letterCombinations("2");
 	return 0;
 }
