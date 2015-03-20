@@ -3,10 +3,8 @@
 #include <cstdlib>
 #include <string>
 #include <vector>
-#include <list>
 #include <unordered_map>
 #include <set>
-#include <algorithm>
 #include <stack>
 #include <sstream>
 #include <map>
@@ -14,8 +12,7 @@
 #include <unordered_set>
 #include <string.h>
 #include <string>
-#include <queue>
-#include <utility> 
+#include <deque>
 using namespace std;
 
 bool isAnagram(string a, string b){
@@ -66,11 +63,11 @@ void letterCombinations(string digits) {
         cout<<res.size();
         // return res;
     }
+
+
 int main ()
 {
   int a[] = {1,1,1,0,2,4,2,5,6,7,2,2,3,3,2,1,2};
   std::vector<int> v(a, a+17);
-  // vector<string> dict = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-  letterCombinations("2");
 	return 0;
 }
