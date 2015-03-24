@@ -41,33 +41,96 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
-void letterCombinations(string digits) {
-        int size = digits.length();
-        string a[] = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-        vector<string> dict(a,a+10);
-        vector<string> res;
+vector<vector<int> > combinationSum2(vector<int> &num, int target) {
+        int size = num.size();
+        vector<vector<int> > ret;
+        unordered_map<int, vector<vector<int> > > map; 
+        unordered_map<int, int> dict;
         
-        if (size == 0) cout<<"emdp"<<endl;
-        res.push_back("");
-        for (int i = 0; i < size; i++) {
-            vector<string> temp;
-            cout<<dict[i].length()<<endl;
-            for (int j = 0; j < dict[i].length(); j++){
-                for (int k = 0; k < res.size(); k++) {
-                  cout<<"fff"<<endl;
-                    temp.push_back(res[k]+dict[i][j]);
+        sort(num.begin(), num.end());
+        ret.resize(1);
+        map[0] = ret; 
+        for (int i = 0; i < size; i++) dict[num[i]]++;
+        for (int i = 1; i <= target; i++) {
+            vector<vector<int> > entry;
+            map[i] = entry;
+            for (int j = 1; j <= i; j++) {  // num[?] == i-j
+                if (dict.count(i-j+1) != 0 && dict[i-j+1] > 0) {
+                    dict[i-j+1]--;
+                    for (const auto& v : map[j-1]){
+                        vector<int> tmp = v;
+                        tmp.push_back(i-j+1);
+                        map[i].push_back(tmp);
+                    }
                 }
-              }
-            res = temp;
+            }
         }
-        cout<<res.size();
-        // return res;
+        cout<<map[0].size()<<endl;
+        map[target].erase(unique(map[target].begin(), map[target].end()), map[target].end());
+
+        return map[target];
+    }
+string repeated_substring(string str) {
+    int len = str.length();
+    int dp[len][len];
+    for (int i = 0; i <= len; ++i) {
+        dp[i][0] = 0;
+        dp[0][i] = 0;
     }
 
-
+    int max_len = 0, index = len + 1;
+    for (int i = 1; i <= len; ++i) {
+        for (int j = 1; j <= len; ++j) {
+            if (str[i-1] == str[j-1] && abs(i-j) > dp[i-1][j-1]) {
+                dp[i][j] = dp[i-1][j-1] + 1;
+                if (dp[i][j] > max_len) {
+                    max_len = dp[i][j];
+                    index = min(i, j);
+                }
+            } else {
+                dp[i][j] = 0;
+            }
+        }
+    }
+    cout<<dp[3][5]<<endl;
+    return max_len > 0 ? str.substr(index - max_len, max_len) : "";
+}
+string longestCommonPrefix(string s1, string s2) {
+  string s = "";
+  int size = min(s1.length(), s2.length());
+  if (size == 0) return s;
+  for (int i = 0; i < size; i++) {
+    if (s1[i] != s2[i]) return s1.substr(0, i); 
+  }
+  return s1.substr(0, size);
+}
+string longestRepeatedSubstring(string s){
+  vector<string> sub; //suffix array
+  int len = s.length();
+  for (int i = 0; i < len; i++) {
+    string str = s.substr(i, len-i);
+    cout<<str<<endl;
+    sub.push_back(str);
+  }
+  sort(sub.begin(), sub.end());
+  string ret = "";
+  for (int i = 0; i < len - 1; ++i)
+  {
+    string x = longestCommonPrefix(sub[i], sub[i+1]);
+    if (x.length() > ret.length())
+    {
+       ret = x;
+    }
+  }
+  return ret;
+}
 int main ()
 {
-  int a[] = {1,1,1,0,2,4,2,5,6,7,2,2,3,3,2,1,2};
-  std::vector<int> v(a, a+17);
+  int a[] = {1,2};
+  std::vector<int> v(a, a+2);
+  // combinationSum2(v, 3);
+  string str = "ababa";
+  cout<<longestRepeatedSubstring(str);
+
 	return 0;
 }
