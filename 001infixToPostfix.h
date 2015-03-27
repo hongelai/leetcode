@@ -11,33 +11,33 @@ int priority(char a) {
 //核心思想：栈里面不能存在比当前操作符优先级高的操作符
 string infixToPostfix(string infix){
 
-    stack<char> operator_stack;
+    stack<char> st;
 
     stringstream output;
 
     for (unsigned i = 0; i < infix.length(); i++) {
         if (infix[i] == '+' || infix[i] == '-' || infix[i] == '*' || infix[i] == '/' || infix[i] == '^') {
-            while (!operator_stack.empty() && priority(operator_stack.top()) <= priority(infix[i])) {
-                output << operator_stack.top();
-                operator_stack.pop();
+            while (!st.empty() && priority(st.top()) <= priority(infix[i])) {
+                output << st.top();
+                st.pop();
             }
-            operator_stack.push(infix[i]);
+            st.push(infix[i]);
         } else if (infix[i] == '(') {
-            operator_stack.push(infix[i]);
+            st.push(infix[i]);
         } else if (infix[i] == ')') {
-            while (operator_stack.top() != '(') {
-                output << operator_stack.top();
-                operator_stack.pop();
+            while (st.top() != '(') {
+                output << st.top();
+                st.pop();
             }
-            operator_stack.pop();
+            st.pop();
         } else {
             output << infix[i];
         }
     }
 
-    while (!operator_stack.empty()) {
-        output << operator_stack.top();
-        operator_stack.pop();
+    while (!st.empty()) {
+        output << st.top();
+        st.pop();
     }
 
     return output.str();

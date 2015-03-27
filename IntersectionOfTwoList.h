@@ -1,38 +1,28 @@
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        ListNode *p1 = headA,*p2 = headB;
-        if(p1 == NULL || p2 == NULL) return NULL;
-        int len1,len2;
-        len1= len2 = 0;
-        while(p1){ //get the list length
-            len1++;
-            p1 = p1->next;
-        }
-        while(p2){
-            len2++;
-            p2 = p2->next;
-        } 
-        
-        p1 = headA;
-        p2 = headB;
-        if(len2 > len1){ //move the poiter of the longer one forward len2 - len1
-            while(len2 > len1){
-                p2 = p2->next;
-                len2--;
+        int lenA = getLength(headA), lenB = getLength(headB);
+        int diff = abs(lenA - lenB);
+        if (lenA > lenB) {
+            while (diff--) {
+                headA = headA->next;
             }
-        }else{
-            while(len1 > len2){
-                p1= p1->next;
-                len1--;
+        } else {
+            while (diff--){
+                headB = headB->next;
             }
         }
-        while(p1 && p2){ //move forward at the same time and find if two pt has the same address
-            if(p1 != p2){
-                p1 = p1->next;
-                p2 = p2->next;
-            }else{
-                return p1;
-            }
-            
+        while (headA && headB) {
+            if (headA == headB) return headA;
+            headA = headA->next;
+            headB = headB->next;
         }
         return NULL;
+    }
+    int getLength(ListNode *node){
+        if (node == NULL) return 0;
+        int count = 0;
+        while (node != NULL) {
+            node = node->next;
+            count++;
+        }
+        return count;
     }

@@ -13,6 +13,7 @@
 #include <string.h>
 #include <string>
 #include <deque>
+#include <queue>
 using namespace std;
 
 bool isAnagram(string a, string b){
@@ -41,6 +42,7 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
+/*
 vector<vector<int> > combinationSum2(vector<int> &num, int target) {
         int size = num.size();
         vector<vector<int> > ret;
@@ -70,67 +72,89 @@ vector<vector<int> > combinationSum2(vector<int> &num, int target) {
 
         return map[target];
     }
-string repeated_substring(string str) {
-    int len = str.length();
-    int dp[len][len];
-    for (int i = 0; i <= len; ++i) {
-        dp[i][0] = 0;
-        dp[0][i] = 0;
+*/
+#define  IN_BOARD(a,b) (a >=0 && a < m && b >= 0 && b < n)
+int minDistance(int board[][5], int m, int n){
+  int minL = 100000;
+  queue<pair<int, int> > q;
+  vector<vector<int> > dist(m, vector<int>(n,-1));// -1 unvisited
+  for (int i = 0; i < m; ++i)
+    for (int j = 0; j < n; ++j)
+    {
+      if(board[i][j] == 3){
+          q.push(make_pair(i,j));
+          dist[i][j] = 0;
+         }
     }
 
-    int max_len = 0, index = len + 1;
-    for (int i = 1; i <= len; ++i) {
-        for (int j = 1; j <= len; ++j) {
-            if (str[i-1] == str[j-1] && abs(i-j) > dp[i-1][j-1]) {
-                dp[i][j] = dp[i-1][j-1] + 1;
-                if (dp[i][j] > max_len) {
-                    max_len = dp[i][j];
-                    index = min(i, j);
-                }
-            } else {
-                dp[i][j] = 0;
-            }
-        }
+
+  while (!q.empty()) {
+
+    int x = q.front().first, y = q.front().second;
+    // cout<<board[x][y]<<endl;
+    if (board[x][y] == 0) break;
+    q.pop();
+    if (IN_BOARD(x-1,y) && (board[x-1][y] == 1 || board[x-1][y] == 0) && dist[x-1][y] == -1){
+      dist[x-1][y] = dist[x][y] + 1;
+      q.push(make_pair(x-1, y));
     }
-    cout<<dp[3][5]<<endl;
-    return max_len > 0 ? str.substr(index - max_len, max_len) : "";
-}
-string longestCommonPrefix(string s1, string s2) {
-  string s = "";
-  int size = min(s1.length(), s2.length());
-  if (size == 0) return s;
-  for (int i = 0; i < size; i++) {
-    if (s1[i] != s2[i]) return s1.substr(0, i); 
-  }
-  return s1.substr(0, size);
-}
-string longestRepeatedSubstring(string s){
-  vector<string> sub; //suffix array
-  int len = s.length();
-  for (int i = 0; i < len; i++) {
-    string str = s.substr(i, len-i);
-    cout<<str<<endl;
-    sub.push_back(str);
-  }
-  sort(sub.begin(), sub.end());
-  string ret = "";
-  for (int i = 0; i < len - 1; ++i)
-  {
-    string x = longestCommonPrefix(sub[i], sub[i+1]);
-    if (x.length() > ret.length())
-    {
-       ret = x;
+    if (IN_BOARD(x+1,y) && (board[x+1][y] == 1 || board[x+1][y] == 0) && dist[x+1][y] == -1){
+      dist[x+1][y] = dist[x][y] + 1;
+      q.push(make_pair(x+1, y));
+    }
+    if (IN_BOARD(x,y-1) && (board[x][y-1] == 1 || board[x][y-1] == 0) && dist[x][y-1] == -1){
+      dist[x][y-1] = dist[x][y] + 1;
+      q.push(make_pair(x, y-1));
+    }
+    if (IN_BOARD(x,y+1) && (board[x][y+1] == 1 || board[x][y+1] == 0) && dist[x][y+1] == -1){
+      dist[x][y+1] = dist[x][y] + 1;
+      q.push(make_pair(x, y+1));
     }
   }
-  return ret;
+  cout<<"fsdfsdfsd"<<endl;
+    for (int i = 0; i < m; ++i){
+      for (int j = 0; j < n; ++j)
+      {
+        cout<<dist[i][j]<<" "; 
+      }
+      cout<<endl;
+    }
+}
+int priority(char c){
+  if(c == '^') return 1;
+  else if(c == '*' || c == '/') return 2;
+  else if(c == '+' || c == '-') return 3;
+}
+string infixToPostfix(string s) {
+  stack<char> st;
+  string res = "";
+
+  for (int i = 0; i < s.length(); i++) {
+    if(s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/' || s[i] == '^') {
+      while (!st.empty() && priority(st.top()) > priority(s[i])) {
+        res.push_back(st.top());
+        st.pop();
+      }
+      st.push(s[i]);
+    } else if (s[i] == '(') {
+      st.push(s[i]);
+    } else if (s[i] == ')') {
+      while (st.top() != '(') {
+        res.push_back(st.top());
+        st.pop();
+      } else res.push_back(s[i]);
+    }
+  }
 }
 int main ()
 {
-  int a[] = {1,2};
-  std::vector<int> v(a, a+2);
-  // combinationSum2(v, 3);
-  string str = "ababa";
-  cout<<longestRepeatedSubstring(str);
-
+  int a[] = {4,5,1,4,5,3,1,6,7,8,9,2};
+  std::vector<int> v(a, a+12);
+  int arr[5][5]={  {1,1,1,1,1},  //0 entry,  1 room, 2 obsta, 3 exit
+                    {1,0,2,0,1},
+                    {1,1,1,2,1},
+                    {1,0,1,3,1},
+                    {1,1,1,1,1}};
+  cout<<minDistance(arr, 5,5)<<endl;
 	return 0;
 }

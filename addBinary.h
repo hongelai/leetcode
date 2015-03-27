@@ -26,3 +26,19 @@ string addBinary(string a, string b){
 
     return res;
 }
+    //solution 2
+    string addBinary(string a, string b) {
+        int la = a.length(), lb = b.length(), len = max(la,lb);
+        int i = la-1, j = lb-1, carry = 0;
+        string ret = "";
+        while (len-- > 0) {
+            int valA = i >= 0 ? a[i--] - '0' : 0;
+            int valB = j >= 0 ? b[j--] - '0' : 0;
+            int val =  valA + valB + carry;
+            carry = val/2;
+            val %= 2;
+            ret.insert(ret.begin(), val + '0');
+        }
+        if (carry) ret.insert(ret.begin(), carry + '0');
+        return ret;
+    }
