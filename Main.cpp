@@ -59,11 +59,29 @@ int findMaxWindow(string a, string b){
 		}
 	return -1;
 }
-
+    bool isInterleave(string s1, string s2, string s3) {
+        int len = s3.length(), m = s1.length(), n = s2.length();
+        if (len != m+n) return false;
+        // bool dp[len+1] = {false};
+        // dp[0] = true;
+        int i = 0, j = 0, index = 0;
+        for (; i < m && j < n;) {
+            if (s3[index] == s1[i] || s3[index] == s2[j]) {
+//                index++;
+                // dp[index] = true;
+                s3[index++] == s1[i] ? i++ :j++; 
+            } else return false;
+        }
+        string sub = i < m ? s1.substr(i,m-i): s2.substr(j,n-j);
+        cout<<sub<<endl;
+        return s3.substr(index,len-index) ==  sub;
+        
+    }
 
 int main ()
 {
   int a[] = {1,1,1,0,2,4,2,5,6,7,2,2,3,3,2,1,2};
   std::vector<int> v(a, a+17);
+  cout<<isInterleave("a","b","ab")<<endl;
 	return 0;
 }
