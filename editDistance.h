@@ -20,5 +20,5 @@
         word2 = dp[j] = str+d, then dp[j-1] = str
         replace d with c, dp[i-1][j-1] + 1
         delete c, dp[i][j-1] + 1, strc - c --> str == dp[j-1]
-        add d, dp[i-1][j] + 1, str + d --> strd == dp[j]
+        add d, dp[i-1][j] + 1, str + d + (c) --> strd == dp[j]
     */

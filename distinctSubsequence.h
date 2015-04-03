@@ -13,7 +13,7 @@
         for(int i = 1; i <= M; i++)
             for(int j = 1; j <= N; j++)
             {
-                dp[i][j] = dp[i-1][j] + (S[i-1] == T[j-1] ? dp[i-1][j-1] : 0);
+                dp[i][j] = dp[i-1][j] + (S[i-1] == T[j-1] ? dp[i-1][j-1] : 0); //为什么不考虑dp[i][j-1]? 因为 dp[i][j]一定要包括T[j-1]在内
             }
         return dp[M][N];
     }
