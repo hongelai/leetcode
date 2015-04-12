@@ -1,3 +1,10 @@
+Node* treeToDoublyList(Node *root) {
+  Node *prev = NULL;
+  Node *head = NULL;
+  treeToDoublyList(root, prev, head);
+  return head;
+}
+
 void treeToDoublyList(Node *p, Node *& prev, Node *& head) {
     if (!p) return;
     treeToDoublyList(p->left, prev, head);
@@ -19,9 +26,3 @@ void treeToDoublyList(Node *p, Node *& prev, Node *& head) {
     treeToDoublyList(right, prev, head);
 }
 
-Node* treeToDoublyList(Node *root) {
-  Node *prev = NULL;
-  Node *head = NULL;
-  treeToDoublyList(root, prev, head);
-  return head;
-}

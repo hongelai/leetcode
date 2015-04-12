@@ -28,3 +28,32 @@
                     return true;
         return false;
     }
+
+
+    bool exist(vector<vector<char> > &board, string word) {
+        int len = word.length();
+        m = board.size();  n = board[0].size();
+        vector<vector<bool> > visited(m,vector<bool>(n,false));
+        
+        for (int i = 0; i < m; i++)
+            for (int j = 0; j < n; j++) {
+                if(dfs(board, word, len, 0, i, j, visited)) return true;
+            }
+        return false;
+    }
+    bool dfs(vector<vector<char> > &board, string &word, int len,int index, int row, int col, vector<vector<bool> > &visited) {
+        if(index == len) return true;
+        if (row < 0 || row >= m || col < 0 || col >= n) return false;
+        if (visited[row][col] || word[index] != board[row][col]) return false;
+        
+        bool find = false;
+        visited[row][col] = true;
+        if (dfs(board, word, len, index+1, row+1, col, visited)) return true;
+        if (dfs(board, word, len, index+1, row-1, col, visited)) return true;
+        if (dfs(board, word, len, index+1, row, col+1, visited)) return true;
+        if (dfs(board, word, len, index+1, row, col-1, visited)) return true;
+        
+        visited[row][col] = false;
+        return find;
+    }
+    int m, n;

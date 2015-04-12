@@ -5,9 +5,7 @@
         if((numerator>0) ^ (denominator >0)) res.push_back('-');
         long long n = abs((long long)numerator), d = abs((long long)denominator); //prevent overflow when devide
         
-        stringstream os;
-        os<<n/d;
-        res.insert(res.size(),os.str());
+        res.insert(res.size(),to_string(n/d));
         n = n%d;
         if(!n) return res;
         else res.push_back('.');

@@ -6,6 +6,7 @@ int priority(char a) {
         temp = 2;
     else  if (a == '+' || a == '-')
         temp = 3;
+    else temp = 4;
     return temp;
 }
 //核心思想：栈里面不能存在比当前操作符优先级高的操作符

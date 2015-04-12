@@ -3,12 +3,12 @@ vector<int> maxArray(vector<int> a, int k) {
   vector<int> res;
   int size = a.size();
 
+  int maxK = a[0];
+  for (int i = 1; i < k && i < size; i++) {
+    if (a[i] > maxK) maxK = a[i];
+  }
   for (int i = 0; i < k && i < size; i++) {
-    if (q.empty()) q.push_back(a[i]);
-    else if (q.back() < a[i]){
-      q.pop_back();
-      q.push_back(a[i]);
-    }
+    if (a[i] == maxK) q.push_back(a[i]);
   }
 
   for (int i = 0; i <= size - k; i++) {

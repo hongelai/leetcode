@@ -19,6 +19,7 @@ public:
             if(*it != "+" && *it != "-" && *it != "*" && *it != "/" ){
                 sk.push(atoi((*it).c_str()));
             }else{
+                
                 int a = sk.top();
                 sk.pop();
                 int b = sk.top();

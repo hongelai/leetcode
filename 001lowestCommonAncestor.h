@@ -36,3 +36,28 @@ struct node *lca(struct node* root, int n1, int n2)
  
     return root;
 }
+
+//n-ary tree
+Node LCA(Node a, Node b, Node root)
+    {
+        if(a == root || b == root)
+            return root;
+            
+        int count = 0;
+        Node temp = null;
+        
+        for(Node iter : root.children)
+        {
+            Node res = LCA(a, b, iter);
+            if(res != null)
+            {
+                count++;
+                temp = res;
+            }
+        }
+        
+        if(count == 2)
+            return root;
+            
+        return temp;
+    }

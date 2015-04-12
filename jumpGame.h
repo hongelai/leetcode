@@ -15,7 +15,7 @@
     }
 
     bool canJump(int A[], int n) {
-        int start = 0, end = 0;
+        int start = 0, end = 0; //end --> cover range
         while (start <= end && end < n-1)
         {
             end = max(end, start + A[start]);

@@ -11,7 +11,7 @@
                 res.push_back(intervals[i]);
             }else if(newInterval.end < intervals[i].start){ // newInterval is before, 
                 res.push_back(newInterval);
-                newInterval = intervals[i];  // 完成当前这个newInterval的merge后，更新下个interval作为newInterval继续merge
+                newInterval = intervals[i];  // 完成当前这个newInterval的merge后，更新下个interval作为newInterval, 就可以把剩下的nonoverlap的push进去
             }else{
                 newInterval.start = min(newInterval.start, intervals[i].start);
                 newInterval.end = max(newInterval.end, intervals[i].end);
