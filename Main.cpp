@@ -18,12 +18,9 @@
 #include <utility> 
 using namespace std;
 
-
 int main ()
 {
   int a[] = {1,1,1,1,1,1,2,2,2,2,2,2};
   vector<int> v(a,a+12);
-
-
 	return 0;
 }

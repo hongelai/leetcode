@@ -8,7 +8,7 @@ int read(char *buf, int n)
         }
         if(num >= n) //
         {
-            buf[n-num] = '\0';
+            buf[n-num] = '\0';//? bug here
             num = n;
         }
         return num;
