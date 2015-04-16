@@ -11,13 +11,10 @@
         if(row == n){
             res++;
         }
-        string s(n,'.');
         for(int i = 0; i < n; i++){
             if(col[i] == 1 || md[row+i] == 1 || ad[row+n-i] == 1) continue;
-            s[i] = 'Q';
             col[i] = md[row+i] = ad[row+n-i] = 1;
             dfs(row+1,n,res,col,md,ad);
             col[i] = md[row+i] = ad[row+n-i] = 0;
-            s[i] = '.';
         }
     }

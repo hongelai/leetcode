@@ -1,33 +1,28 @@
-    int atoi(const char *str) {
-        int i = 0;
-        bool flag = false, positive = true;
+    int myAtoi(string str) {
+        int len = str.length(), i = 0;
+        bool positive = true;
+        if(len == 0) return 0;
         while(str[i] == ' ') i++;
-        if(str[i] == '+' || str[i] == '-') flag = true;
-        if(flag == true){
-            
+        if (str[i] == '+' || str[i] == '-') {
             if(str[i] == '-') positive = false;
             i++;
         }
-        if(str[i] < '0' || str[i] > '9' ) return 0;
-        stack<int> res;
-        while(str[i] >='0' && str[i] <= '9') res.push(str[i++]-'0');
-          
+        queue<int> q;
+        while(str[i] - '0' >= 0 && str[i] - '0' <= 9) {
+            q.push(str[i++]- '0');
+        }
+        long long res = 0;
         
-        long long result = 0;
-        for(int j =0; !res.empty();j++){
-            int it = res.top();
-            result+= it * pow(10,j);
-            res.pop();
-            if(positive && result > INT_MAX){
-                result = INT_MAX;
-                return (int)result;
+        for (int j = 0; !q.empty(); j++){
+            res = res * 10 + q.front();
+            q.pop();
+            if(positive && res > INT_MAX) {
+                return INT_MAX;
             } 
-            if(!positive && 0 - result < INT_MIN){
-                result = INT_MIN;
-                return (int)INT_MIN;
-            } 
-        } 
-    
-        if(flag && !positive) return 0-result;  
-        else return result;
+            if(!positive && 0 - res < INT_MIN) {
+                return INT_MIN;
+            }
+        }
+        if(!positive) return 0-res;
+        else return res;
     }

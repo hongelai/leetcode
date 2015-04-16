@@ -1,49 +1,3 @@
-struct node{
-    int data;
-    node* next;
-};
-class MinStack {              //memory space O(2n) memory limit exceed error
-
-public:
-    node* stackList;
-    MinStack(){
-        stackList = new node;
-        stackList->next = NULL;
-    }    
-    void push(int x) {
-        node* tmp = new node;
-        if(tmp != NULL){
-            tmp->data = x;
-            tmp->next = stackList->next;
-            stackList->next = tmp;
-
-        }
-    }
-
-    void pop() {
-        if(stackList->next != NULL){
-            node* top = stackList->next;
-            stackList->next = stackList->next->next;
-            delete top;
-        }
-    }
-
-    int top() {
-        return stackList->next->data;
-    }
-
-    int getMin() {
-        node* tmp = stackList->next;
-        int minInt = stackList->next->data;
-        while(tmp != NULL){
-            if(tmp->data < minInt) minInt = tmp->data; 
-            tmp = tmp->next;
-        } 
-        return minInt;
-    }
-};  
-
-
 class MinStack {                 //using one stack, store the difference
 public:
     void push(int x) {
@@ -75,34 +29,25 @@ public:
 };
 
 
-class MinStack {  //accepted
+class MinStack {
 public:
     void push(int x) {
-        s.push(x);
-        if(mins.empty())
-            mins.push(x);
-        else{
-            if(x <= mins.top())
-                mins.push(x);
-        }
+        sk.push(x);
+        if(minsk.empty() || x <= minsk.top()) minsk.push(x);
     }
 
     void pop() {
-        if(!s.empty()){  
-            if(mins.top() == s.top())
-                mins.pop();
-            s.pop();
-        }
+        if(!minsk.empty() && sk.top() == minsk.top()) minsk.pop();
+        if(!sk.empty())sk.pop();        
     }
 
     int top() {
-
-        return s.top();
+        return sk.top();
     }
 
     int getMin() {
-        return mins.top();
+        return minsk.top();
     }
-    stack<int> s;
-    stack<int> mins;
+    stack<int> minsk;
+    stack<int> sk;  
 };

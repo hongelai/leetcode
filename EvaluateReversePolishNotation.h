@@ -1,33 +1,22 @@
-class Solution {
-public:
-    int calculate(int a, int b, string op){
-        if(op == "+")
-            return a+b;
-        else if(op == "-")
-            return a-b;
-        else if(op =="*")
-            return a*b;
-        else if(op == "/")
-            return a/b;
-        else 
-            return 0;
-    }
-    int evalRPN(vector<string> &tokens) {
+int evalRPN(vector<string> &tokens) {
         stack<int> sk;
-        vector<string>::const_iterator it = tokens.begin();
-        for(;it != tokens.end();it++){
-            if(*it != "+" && *it != "-" && *it != "*" && *it != "/" ){
-                sk.push(atoi((*it).c_str()));
-            }else{
-                
+        for (int i = 0; i < tokens.size(); i++) {
+            if(tokens[i] == "+" || tokens[i] == "/" || tokens[i] == "*" || tokens[i] == "-") {
                 int a = sk.top();
                 sk.pop();
                 int b = sk.top();
                 sk.pop();
-                int result = calculate(b,a,*it);
-                sk.push(result);
+                sk.push(getResult(b, a, tokens[i]));
+            } else {
+                sk.push(atoi(tokens[i].c_str()));
             }
         }
         return sk.top();
     }
-};
+    
+    int getResult(int a, int b, string c){
+        if(c == "*") return a*b;
+        else if (c == "/") return a/b;
+        else if (c == "+") return a+b;
+        else if (c == "-") return a-b;
+    }

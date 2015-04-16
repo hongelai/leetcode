@@ -1,1 +1,1 @@
-//repeatDNA trie
+//repeatDNA trie longestCommonPrefix

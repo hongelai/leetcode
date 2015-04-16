@@ -1,7 +1,8 @@
-int reverse(int x) {
-    int newX = 0;
-    for(;x;x/=10){
-        newX = newX*10 + x%10;
-
-    return newX;
-}
+    int reverse(int x) {
+        long long res = 0;
+        while(x){
+            res = res*10 + x%10;
+            x /= 10;
+        }
+        return res > INT_MAX || res < INT_MIN ? 0 : res;  
+    }

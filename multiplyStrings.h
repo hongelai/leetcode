@@ -20,20 +20,17 @@
     }
 
     //use vector<string>, and erase the 0's
-        string multiply(string num1, string num2) {
-        int N = num1.size(), M = num2.size();
-        string res(N+M, '0');
-        for (int i = N - 1; i >= 0; --i)
-        {
-            int carry = 0;
-            for (int j = M - 1; j >= 0; --j)
-            {
-                int sum = carry + (res[i+j+1] - '0') + 
-                          (num1[i] - '0') * (num2[j] - '0');
-                res[i+j+1] = sum % 10 + '0';
-                carry = sum / 10;
+    string multiply(string num1, string num2) {
+        int len1 = num1.length(), len2 = num2.length(), carry = 0;
+        string res(len1+len2, '0');
+        for (int i = len1-1; i >= 0; i--){
+            for(int j = len2-1; j >= 0; j--){
+                int val = (num1[i]-'0')*(num2[j]-'0')+(res[i+j+1]-'0');
+                carry = val/10;
+                val = val%10;
+                res[i+j+1] = val + '0';
+                res[i+j] += carry;  
             }
-            res[i] += carry;
         }
         while (res.size() > 1 && res[0] == '0')
             res.erase(res.begin());

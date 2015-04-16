@@ -23,3 +23,22 @@
         node->next = p->next;
         p->next = node;
     }
+
+    //
+    ListNode *insertionSortList(ListNode *head) {
+        if(head == NULL) return NULL;
+        ListNode* dummy = new ListNode(-1), *cur = head->next;
+        ListNode* pre = dummy;
+        dummy->next = head;
+        dummy->next->next = NULL;
+        
+        while(cur){
+            ListNode* tmp = cur;
+            cur = cur->next;
+            while(pre->next && pre->next->val <= tmp->val) pre = pre->next;
+            tmp->next = pre->next;
+            pre->next = tmp;
+            pre = dummy;
+        }
+        return dummy->next;
+    }
