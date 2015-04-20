@@ -1,23 +1,3 @@
-#include <iostream>
-//#include <queue>
-#include <cstdlib>
-#include <string>
-#include <vector>
-#include <list>
-#include <unordered_map>
-#include <set>
-#include <algorithm>
-#include <stack>
-#include <sstream>
-#include <map>
-#include <limits>
-#include <unordered_set>
-#include <string.h>
-#include <string>
-#include <queue>
-#include <utility> 
-using namespace std;
-
 #define AlphaBetaSize 26
 
 struct TrieNode
