@@ -18,73 +18,33 @@
 #include <utility> 
 using namespace std;
 
-#define AlphaBetaSize 26
-
-struct TrieNode
-{
-  int value;
-  TrieNode* child[AlphaBetaSize];
-  TrieNode(int val):value(val){}
-};
-
-TrieNode* getNode();
-
-struct Trie
-{
-   TrieNode* root;
-   int count;
-   Trie(){
-      count = 0;
-      root = getNode();
-   }
-};
-
-TrieNode* getNode(){
-  TrieNode *node = new TrieNode(0);
-  for (int i = 0; i < AlphaBetaSize; ++i)
+void replaceSpace(string &s, int length){
+  int spaceCount = 0;
+  for (int i = 0; i < length; ++i)
   {
-    node->child[i] = NULL;
+    if (s[i] == ' ') spaceCount++;
   }
-  return node;
-}
-
-void insert(Trie* trie, string s){
-  TrieNode* cur = trie->root;
-  trie->count++;
-
-  for (int i = 0; i < s.length(); ++i)
+  int newLength = spaceCount*2 + length;
+  for (int i = length-1; i >= 0; i--)
   {
-    int index = s[i] - 'a';
-    if (cur->child[index] == NULL) cur->child[index] = getNode();
-    cur = cur->child[index];
+    if (s[i] == ' ')
+    {
+      s[newLength-1] = '0';
+      s[newLength-2] = '2';
+      s[newLength-3] = '%';
+      newLength -= 3;
+    } else {
+      s[newLength-1] = s[i];
+      newLength--;
+    }
   }
-  cur->value = trie->count;
+  cout<<s<<endl;
 }
-
-bool search(Trie* trie, string s){
-  TrieNode* cur = trie->root;
-
-  for (int i = 0; i < s.length(); ++i)
-  {
-    int index = s[i] - 'a';
-    if(cur->child[index] == NULL) return false;
-    cur = cur->child[index];
-  }
-  return cur && cur->value;
-}
-
 int main ()
 {
   int a[] = {1,1,1,1,2,3,3,4,4,5,5,5,5,6,6,6,6,7,9,9,9,9,9,9,9,9};
   vector<int> v(a,a+26);
-  Trie trie;
-  string s[] = {"the", "a", "there", "answer", "any", "by", "bye", "their"};
-  for(int i = 0; i < 8; i++)
-  {
-      insert(&trie, s[i]);
-  }
-  cout<<endl;
-  cout<<search(&trie,"the")<<endl;
-  cout<<search(&trie,"their")<<endl;
+  string s = "i have a dream            ";
+  replaceSpace(s, 14);
 	return 0;
 }
