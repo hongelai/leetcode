@@ -1,3 +1,72 @@
+//map implementation, in c++ map is implemented using red-black tree
+class Trie
+{
+private:
+  char value;
+  map<char, Trie*> children;
+  bool flag;
+public:
+  Trie(char val = ' '){
+    value = val;
+    flag = false;
+  }
+  void insert(string s);
+  bool search(string s);
+  vector<string> getWords();
+  friend void dfs(vector<string> &res, string &path, Trie* trie);
+};
+
+void Trie::insert(string s){
+  Trie* cur = this;
+
+  for (int i = 0; i < s.length(); ++i)
+  {
+    char c = s[i];
+    if(cur->children.count(c) == 0){
+      cur->children[c] = new Trie(c);
+    }
+    cur = cur->children[c];
+  }
+  cur->flag = true;
+}
+
+bool Trie::search(string s){
+  Trie* cur = this;
+
+  for (int i = 0; i < s.length(); ++i)
+  {
+    char c = s[i];
+    if (cur->children.count(c) != 0)
+    {
+      cur = cur->children[c];
+    } else return false;
+  }
+  return cur->flag;
+}
+
+void dfs(vector<string> &res, string &path, Trie* trie){
+  if (trie->flag)
+  {
+    res.push_back(path);
+  }
+  //map key is like edge, map trie->value store trie node value; value == key
+  for(auto it = trie->children.begin(); it != trie->children.end(); it++){
+    char c = it->second->value;
+    path.append(1,c);
+    dfs(res,path,it->second);
+    path.pop_back();
+  }
+}
+
+vector<string> Trie::getWords(){
+  Trie* trie = this;
+  string path;
+  vector<string> res;
+  dfs(res,path,trie);
+  return res;
+}
+
+//array implementation
 #define AlphaBetaSize 26
 
 struct TrieNode

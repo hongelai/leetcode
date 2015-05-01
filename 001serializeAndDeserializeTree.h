@@ -23,3 +23,27 @@ Node* fileToTree(ifstream& input_file)
     head->right=fileToTree(input_file);
     return head;
 }
+
+//same idea
+void serializeTree(TreeNode* root, vector<int> &res){
+  if (root == NULL)
+  {
+    res.push_back(-1);
+    return;
+  }
+  res.push_back(root->val);
+  serializeTree(root->left, res);
+  serializeTree(root->right, res);
+}
+
+TreeNode* deserializeTree(vector<int> res, int &index){
+  if (res[index] == -1)
+  {
+    index++;
+    return NULL;
+  }
+  TreeNode *root = new TreeNode(res[index++]);
+  root->left = deserializeTree(res, index);
+  root->right = deserializeTree(res,index);
+  return root;
+}

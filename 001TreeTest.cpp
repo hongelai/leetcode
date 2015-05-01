@@ -11,6 +11,7 @@ struct TreeNode
    int val;
    struct TreeNode* left;
    struct TreeNode* right;
+   TreeNode(int v):val(v){}
 };
 
 struct TreeNode* newnode(int data)
@@ -23,6 +24,7 @@ struct TreeNode* newnode(int data)
   
   return(node);
 }
+
 
 int main()
 { 
@@ -41,6 +43,5 @@ int main()
   root->left->right = newnode(5);
   root->right->left = newnode(2);
 
-  cout<<longestPathLength(root)<<endl;
   return 0;
 }

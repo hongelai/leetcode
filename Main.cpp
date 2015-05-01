@@ -1,5 +1,4 @@
 #include <iostream>
-//#include <queue>
 #include <cstdlib>
 #include <string>
 #include <vector>
@@ -10,41 +9,53 @@
 #include <stack>
 #include <sstream>
 #include <map>
-#include <limits>
 #include <unordered_set>
 #include <string.h>
-#include <string>
-#include <queue>
-#include <utility> 
-using namespace std;
+#include <queue> 
+#include <fstream>
+#include <sstream>
 
-void replaceSpace(string &s, int length){
-  int spaceCount = 0;
-  for (int i = 0; i < length; ++i)
+using namespace std;
+int min_index(int dist[V], int final[V]){
+  int min = INT_MAX, min_index = -1;
+  for (int i = 0; i < V; ++i)
   {
-    if (s[i] == ' ') spaceCount++;
-  }
-  int newLength = spaceCount*2 + length;
-  for (int i = length-1; i >= 0; i--)
-  {
-    if (s[i] == ' ')
+    if (!final[i] && dist[i] < min)
     {
-      s[newLength-1] = '0';
-      s[newLength-2] = '2';
-      s[newLength-3] = '%';
-      newLength -= 3;
-    } else {
-      s[newLength-1] = s[i];
-      newLength--;
+      min = dist[i];
+      min_index = i;
     }
   }
-  cout<<s<<endl;
+  return min_index;
 }
+vector<int> dijstra(int graph[V][V], int src){
+
+  int dist[V];
+  for (int i = 0; i < V; ++i)
+  {
+    dist[i] = INT_MAX;
+  }
+  dist[src] = 0;
+
+  for (int i = 0; i < V; ++i)
+  {
+    int min_index = min_index(dist, final);
+    final[min_index]  = true;
+    for (int w = 0; w < V; w++)
+    {
+      if (final[w] == false && graph[min_index][w] && dist[w] != INT_MAX &&  graph[min_index][w] + dist[min_index] < dist[w])
+      {
+        dist[w] = graph[min_index][w] + dist[min_index];
+      }
+    }
+  }
+}
+
 int main ()
 {
-  int a[] = {1,1,1,1,2,3,3,4,4,5,5,5,5,6,6,6,6,7,9,9,9,9,9,9,9,9};
-  vector<int> v(a,a+26);
-  string s = "i have a dream            ";
-  replaceSpace(s, 14);
-	return 0;
+
+  // int a[] = {3,5,1,23,11,34,21};
+  // vector<int> v(a,a+7);
+  cout<<convertToTitle(3);
+  return 0;
 }
