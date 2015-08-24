@@ -6,7 +6,7 @@
         if(start > end) return NULL;
         
         int index = start;
-        while(preorder[preIndex] != inorder[index]) index++;
+        while(preorder[preIndex] != inorder[index]) index++; //find the root of child tree
         int leftNum = index-start;
         TreeNode* root = new TreeNode(preorder[preIndex]);
         root->left = buildTreeRe(preorder,inorder,start,index-1,preIndex+1);
