@@ -11,5 +11,5 @@
                 else return false;
             }
         }
-        return sk.empty() ? true : false;
+        return sk.empty();
     }
