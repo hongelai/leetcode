@@ -6,4 +6,11 @@ public class Solution {
         }
         return result;
     }
+
+    public static int singleNumber(int[] nums) {
+        // List<Integer> list = IntStream.of(nums).boxed().collect(Collectors.<Integer>toList());
+        // return list.stream().reduce(0, (c,e)->c^e);
+        // return IntStream.of(nums).reduce(0, (c,e)->c^e);
+        return Arrays.stream(nums).reduce(0, (c,e)->c^e);
+    }
 }
