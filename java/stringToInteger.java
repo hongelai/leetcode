@@ -17,4 +17,39 @@ public class Solution {
         
         return postive ? rs : rs * -1;
     }
+
+        public int myAtoi(String str) {
+        if (str.length() == 0) return 0;
+        
+        boolean positive = true;
+        int index = 0, n = str.length();
+        
+        // remove heading space
+        while (index < n && str.charAt(index) == ' ') index++;
+        
+        // handle operator
+        if (index < n && str.charAt(index) == '-') {
+            positive = false;
+            index ++;
+        }
+        else if (index < n && str.charAt(index) == '+') index ++;
+        
+        long res = 0;
+        
+        while (index < str.length()) {
+            char c = str.charAt(index);
+            if (Character.isDigit(c)) {
+                res = res*10 + c - '0';
+                index++;
+            } else {
+                break;
+            }
+            
+            if (res > Integer.MAX_VALUE) break;
+        }
+        if (res > Integer.MAX_VALUE) return positive ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+        
+        return positive ? (int) res : (int)res * -1;
+        
+    }
 }

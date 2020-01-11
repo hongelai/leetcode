@@ -19,6 +19,6 @@
         word1 = dp[i] = str+c, then dp[i-1] = str,
         word2 = dp[j] = str+d, then dp[j-1] = str
         replace d with c, dp[i-1][j-1] + 1
-        delete c, dp[i][j-1] + 1, strc - c --> str == dp[j-1]
-        add d, dp[i-1][j] + 1, str + d + (c) --> strd == dp[j]
+        add c, dp[i][j-1] + 1, strc - c --> str == dp[j-1]
+        delete d, dp[i-1][j] + 1, str + d + (c) --> strd == dp[j]
     */
