@@ -46,7 +46,7 @@ class Solution {
                 }
             }
         }
-        Collections.sort(res);
+        
         return res;
     }
     
