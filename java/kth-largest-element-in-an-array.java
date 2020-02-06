@@ -30,4 +30,24 @@ class Solution {
         
         return index;
     }
+    
+    private int partition(int[] a, int l, int h) {
+        int i = l, j = h + 1;
+        while (true) {
+            while (a[++i] < a[l] && i < h) ;
+            while (a[--j] > a[l] && j > l) ;
+            if (i >= j) {
+                break;
+            }
+            swap(a, i, j);
+        }
+        swap(a, l, j);
+        return j;
+    }
+    
+    private void swap(int[] a, int i, int j) {
+        int t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
 }
