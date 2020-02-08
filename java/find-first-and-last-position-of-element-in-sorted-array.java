@@ -1,32 +1,33 @@
 class Solution {
     public int[] searchRange(int[] nums, int target) {
         int[] range = {-1 , -1};
-        if (nums == null && nums.length == 0) return range;
+        if (nums == null || nums.length == 0) return range;
         
         int s = 0, e = nums.length - 1;
-        int l = findInsert(nums, target, true);
+        int first = findFirst(nums, target);
+        int last = findFirst(nums, target+1) - 1;
         
-        if (l == nums.length || nums[l] != target) return range;
+        if (first == nums.length || nums[first] != target) return range;
         
-        range[0] = l;
-        range[1] = findInsert(nums, target, false) - 1;
-        
-        return range;
+        return new int[]{first, last};
     }
     
-    private int findInsert(int[] nums, int target, boolean first) {
+    private int findFirst(int[] nums, int target) {
         int start = 0;
         int end = nums.length - 1;
 
-        while (start <= end) {
+        while (start+1 < end) {
             int mid = start + (end - start) / 2;
-            if (nums[mid] > target || (first && target == nums[mid])) { 
-                end = mid-1;
+            if (nums[mid] >= target) { 
+                end = mid;
             }
             else {
-                start = mid+1;
+                start = mid;
             }
         }
-        return start;
+        
+        if (nums[start] >= target) return start;
+        else if (nums[end] >= target) return end;
+        else return end+1;
     }
 }
