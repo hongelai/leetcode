@@ -11,7 +11,7 @@ class Solution {
             ArrayList<String> path = paths.poll();
             
             if (path.size() > level) {
-                //cannot reuse word visited in uper level
+                //cannot reuse word visited in uper levels
                 for (String s : levelWord) dict.remove(s);
                 levelWord.clear();
                 level = path.size();
