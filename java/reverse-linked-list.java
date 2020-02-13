@@ -8,20 +8,18 @@
  */
 class Solution {
     public ListNode reverseList(ListNode head) {
-        ListNode dummy = new ListNode(-1);
+        ListNode newHead = new ListNode(-1);
         
-        if (head == null || head.next == null) return head;
-        dummy.next = head;
-        ListNode cur = head;
-        
-        while (cur != null && cur.next != null) {
-            ListNode node = cur.next;
+        //take the head from old list and insert into head of new list
+        while (head != null) {
+            ListNode remain = head.next;
             
-            cur.next = node.next;
-            node.next = dummy.next;
-            dummy.next = node;
+            head.next = newHead.next;
+            newHead.next = head;
+            head = remain;
         }
         
-        return dummy.next;
+        return newHead.next;
     }
+}
 }
