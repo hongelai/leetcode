@@ -9,17 +9,18 @@
 class Solution {
     public ListNode swapPairs(ListNode head) {
         ListNode dummy = new ListNode(-1);
-        ListNode slow = dummy, fast = head;
+        ListNode pre = dummy;
         dummy.next = head;
         
-        while (fast != null && fast.next != null) {
-            slow.next = fast.next;
-            fast.next = fast.next.next;
-            slow.next.next = fast;
+        while (pre.next != null && pre.next.next != null) {
+            ListNode l1 = pre.next, l2 = pre.next.next;
+            ListNode next = l2.next;
             
-            //move forward
-            slow = slow.next.next;
-            fast = fast.next;
+            l1.next = next;
+            l2.next = l1;
+            pre.next = l2;
+            
+            pre = l1;
         }
         
         return dummy.next;   
