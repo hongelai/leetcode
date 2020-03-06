@@ -57,6 +57,7 @@ class Solution {
         }
     }
     
+    //O(e+q)
     public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
         UnionFind uf = new UnionFind();
         double[] res = new double[queries.size()];
@@ -85,6 +86,7 @@ class Solution {
     
     HashMap<String, HashMap<String, Double>> map = new HashMap<>();
     
+    ////O(e+q*e)
     public double[] calcEquation_dfs(List<List<String>> equations, double[] values, List<List<String>> queries) {
         HashSet<String> visit = new HashSet<>();
         double[] res = new double[queries.size()];
