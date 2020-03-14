@@ -1,6 +1,7 @@
 Hungarian algorithm 
 * Usage: Match in bipartite
 * Explanation: https://blog.csdn.net/dark_scope/article/details/8880547
+               https://blog.csdn.net/qq_37943488/article/details/78586048
 * 二分图（X， Y），对X里面的每一个节点找Y里面的匹配。如果一个节点Xi 不能匹配到，则对Xi的每一个edge上的Yi进行dfs回溯重新匹配，腾出位置给Xi
 
 Ford Fulkerson:
