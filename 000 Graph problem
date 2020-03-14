@@ -11,4 +11,5 @@ Ford Fulkerson:
 
 Kruskal algorithm
 * Usage：minimum spanning true
-https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/
+* Explantion: https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/
+* 通过union find,不断选取最大的边加入到graph,直到cover所有点
