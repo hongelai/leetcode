@@ -15,3 +15,9 @@ Kruskal algorithm
 * Usage：minimum spanning true
 * Explantion: https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/
 * 通过union find,不断选取最大的边加入到graph,直到cover所有点
+
+从BFS -> Dijkstra’s -> A* 的算法演进
+* Explanation : https://www.redblobgames.com/pathfinding/a-star/introduction.html
+* BFS向各个方向发散
+* Dijkstra’s的图有权重，优先向cost小的方向，所以我们选择PriorityQueue<Node, Priority>， 用一个Map<Node, Cost(Priority)>记录节点和当前cost。在发散过程中，不管更新PriorityQueue和Map里面的Cost/Priority
+* A* 在Dijkstra’s的基础上，在算cost的时候加上Heuristic函数， 使得优先朝着goal方向的点前进
